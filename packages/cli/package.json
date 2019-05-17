@@ -133,5 +133,6 @@
     }
   },
   "copyright.owner": "IBM Corp.",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true
 }
