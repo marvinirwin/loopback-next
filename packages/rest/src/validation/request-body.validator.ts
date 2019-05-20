@@ -13,8 +13,9 @@ import * as AJV from 'ajv';
 import * as debugModule from 'debug';
 import * as _ from 'lodash';
 import * as util from 'util';
-import {HttpErrors, RequestBody, RestHttpErrors} from '..';
-import {RequestBodyValidationOptions} from '../types';
+import {RequestBody} from '../body-parsers';
+import {RestHttpErrors} from '../rest-http-error';
+import {HttpErrors, RequestBodyValidationOptions} from '../types';
 
 const toJsonSchema = require('openapi-schema-to-json-schema');
 const debug = debugModule('loopback:rest:validation');
