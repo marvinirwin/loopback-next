@@ -15,8 +15,8 @@ describe('Application', () => {
   let app: HelloWorldApplication;
   let client: Client;
 
-  before(givenAnApplication);
-  before(async () => {
+  beforeAll(givenAnApplication);
+  beforeAll(async () => {
     await app.start();
     client = createRestAppClient(app);
   });

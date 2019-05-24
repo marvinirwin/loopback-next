@@ -18,7 +18,7 @@ import {
 describe('legacy loopback-datasource-juggler', () => {
   let ds: juggler.DataSource;
 
-  before(function() {
+  beforeAll(function() {
     ds = new juggler.DataSource({
       name: 'db',
       connector: 'memory',
@@ -71,7 +71,7 @@ describe('DefaultCrudRepository', () => {
     });
   });
 
-  context('constructor', () => {
+  describe('constructor', () => {
     class ShoppingList extends Entity {
       static definition = new ModelDefinition({
         name: 'ShoppingList',

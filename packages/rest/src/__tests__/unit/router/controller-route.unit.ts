@@ -90,7 +90,7 @@ describe('ControllerRoute', () => {
     let appCtx: Context;
     let requestCtx: Context;
 
-    before(givenContextsAndControllerRoute);
+    beforeAll(givenContextsAndControllerRoute);
 
     it('adds bindings to the request context', async () => {
       expect(requestCtx.contains(CoreBindings.CONTROLLER_CURRENT));

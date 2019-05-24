@@ -25,7 +25,7 @@ describe('HttpHandler mounted as an express router', () => {
   beforeEach(givenExpressApp);
   beforeEach(givenClient);
 
-  context('with a simple HelloWorld controller', () => {
+  describe('with a simple HelloWorld controller', () => {
     beforeEach(function setupHelloController() {
       class HelloController {
         @get('/hello')

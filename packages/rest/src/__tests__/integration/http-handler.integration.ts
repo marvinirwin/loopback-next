@@ -44,7 +44,7 @@ describe('HttpHandler', () => {
   beforeEach(givenHandler);
   beforeEach(givenClient);
 
-  context('with a simple HelloWorld controller', () => {
+  describe('with a simple HelloWorld controller', () => {
     beforeEach(function setupHelloController() {
       const spec = anOpenApiSpec()
         .withOperationReturningString('get', '/hello', 'greet')
@@ -68,7 +68,7 @@ describe('HttpHandler', () => {
     });
   });
 
-  context('with a controller with operations at different paths/verbs', () => {
+  describe('with a controller with operations at different paths/verbs', () => {
     beforeEach(function setupHelloController() {
       const spec = anOpenApiSpec()
         .withOperationReturningString('get', '/hello', 'hello')
@@ -116,7 +116,7 @@ describe('HttpHandler', () => {
     });
   });
 
-  context('with an operation echoing a string parameter from query', () => {
+  describe('with an operation echoing a string parameter from query', () => {
     beforeEach(function setupEchoController() {
       const spec = anOpenApiSpec()
         .withOperation('get', '/echo', {
@@ -162,7 +162,7 @@ describe('HttpHandler', () => {
     });
   });
 
-  context('with a path-parameter route', () => {
+  describe('with a path-parameter route', () => {
     beforeEach(givenRouteParamController);
 
     it('returns "admin" for "/users/admin"', () => {
@@ -203,7 +203,7 @@ describe('HttpHandler', () => {
     }
   });
 
-  context('with a header-parameter route', () => {
+  describe('with a header-parameter route', () => {
     beforeEach(givenHeaderParamController);
 
     it('returns the value sent in the header', () => {
@@ -247,7 +247,7 @@ describe('HttpHandler', () => {
     }
   });
 
-  context('with a body request route', () => {
+  describe('with a body request route', () => {
     let bodyParamControllerInvoked = false;
     beforeEach(() => {
       bodyParamControllerInvoked = false;
@@ -454,7 +454,7 @@ describe('HttpHandler', () => {
     }
   });
 
-  context('response serialization', () => {
+  describe('response serialization', () => {
     it('converts object result to a JSON response', () => {
       const spec = anOpenApiSpec()
         .withOperation('get', '/object', {
@@ -481,7 +481,7 @@ describe('HttpHandler', () => {
     });
   });
 
-  context('error handling', () => {
+  describe('error handling', () => {
     it('handles errors thrown by controller constructor', () => {
       const spec = anOpenApiSpec()
         .withOperationReturningString('get', '/hello', 'greet')

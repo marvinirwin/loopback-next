@@ -17,11 +17,11 @@ describe('GeoLookupService', function() {
   this.timeout(30 * 1000);
 
   let cachingProxy: HttpCachingProxy;
-  before(async () => (cachingProxy = await givenCachingProxy()));
+  beforeAll(async () => (cachingProxy = await givenCachingProxy()));
   after(() => cachingProxy.stop());
 
   let service: GeocoderService;
-  before(givenGeoService);
+  beforeAll(givenGeoService);
 
   it('resolves an address to a geo point', async () => {
     const points = await service.geocode('1 New Orchard Road, Armonk, 10504');

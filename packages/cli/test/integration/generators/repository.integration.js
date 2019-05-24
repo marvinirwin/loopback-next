@@ -25,7 +25,7 @@ describe('lb4 repository', function() {
   // tslint:disable-next-line:no-invalid-this
   this.timeout(30000);
 
-  beforeEach('reset sandbox', async () => {
+  beforeEach(async () => {
     await sandbox.reset();
   });
 

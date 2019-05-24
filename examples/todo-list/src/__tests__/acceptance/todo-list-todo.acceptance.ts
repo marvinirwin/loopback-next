@@ -23,12 +23,12 @@ describe('TodoListApplication', () => {
 
   let persistedTodoList: TodoList;
 
-  before(givenRunningApplicationWithCustomConfiguration);
+  beforeAll(givenRunningApplicationWithCustomConfiguration);
   after(() => app.stop());
 
-  before(givenTodoRepository);
-  before(givenTodoListRepository);
-  before(() => {
+  beforeAll(givenTodoRepository);
+  beforeAll(givenTodoListRepository);
+  beforeAll(() => {
     client = createRestAppClient(app);
   });
 
@@ -55,7 +55,7 @@ describe('TodoListApplication', () => {
     expect(toJSON(created)).to.deepEqual({id: response.body.id, ...expected});
   });
 
-  context('when dealing with multiple persisted Todos', () => {
+  describe('when dealing with multiple persisted Todos', () => {
     let notMyTodo: Todo;
     let myTodos: Todo[];
 

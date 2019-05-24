@@ -4,16 +4,16 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {expect} from '@loopback/testlab';
-import {Context, BindingKey} from '../..';
+import {BindingKey, Context} from '../..';
 
 describe('Context bindings - Creating and resolving bindings', () => {
   let ctx: Context;
-  before('given a context', createContext);
+  beforeAll(createContext);
 
   describe('Simple bindings', () => {
     describe('when a simple binding', () => {
-      context('is created with key `foo` and bound to value `bar`', () => {
-        before(createBinding);
+      describe('is created with key `foo` and bound to value `bar`', () => {
+        beforeAll(createBinding);
 
         it('registers key `foo` into the context', () => {
           expect(ctx.contains('foo')).to.be.true();
@@ -35,7 +35,7 @@ describe('Context bindings - Creating and resolving bindings', () => {
       });
     });
 
-    context('with type information', () => {
+    describe('with type information', () => {
       it('infers correct type when getting the value', async () => {
         const key = BindingKey.create<string>('foo');
         ctx.bind(key).to('value');
@@ -68,23 +68,23 @@ describe('Context bindings - Creating and resolving bindings', () => {
 
   describe('Dynamic bindings', () => {
     describe('when a dynamic binding is created with three values', () => {
-      before(createDynamicBinding);
+      beforeAll(createDynamicBinding);
 
-      context('resolving the binding for the first time', () => {
+      describe('resolving the binding for the first time', () => {
         it('returns the first value', async () => {
           const result = await ctx.get('data');
           expect(result).to.equal('a');
         });
       });
 
-      context('resolving the binding for the second time', () => {
+      describe('resolving the binding for the second time', () => {
         it('returns the second value', async () => {
           const result = await ctx.get('data');
           expect(result).to.equal('b');
         });
       });
 
-      context('resolving the binding for the third time', () => {
+      describe('resolving the binding for the third time', () => {
         it('returns the third value', async () => {
           const result = await ctx.get('data');
           expect(result).to.equal('c');

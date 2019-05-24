@@ -16,7 +16,7 @@ describe('datasource booter integration tests', () => {
 
   let app: BooterApp;
 
-  beforeEach('reset sandbox', () => sandbox.reset());
+  beforeEach(() => sandbox.reset());
   beforeEach(getApp);
 
   it('boots datasources when app.boot() is called', async () => {

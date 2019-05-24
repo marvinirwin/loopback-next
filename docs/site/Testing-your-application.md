@@ -174,7 +174,7 @@ export async function givenEmptyDatabase() {
 import {givenEmptyDatabase} from '../../helpers/database.helpers';
 
 describe('ProductController (integration)', () => {
-  before(givenEmptyDatabase);
+  beforeAll(givenEmptyDatabase);
   // etc.
 });
 ```
@@ -727,7 +727,7 @@ import {GeoDataSource} from '../../src/datasources/geo.datasource.ts';
 
 describe('GeoService', () => {
   let service: GeoService;
-  before(givenGeoService);
+  beforeAll(givenGeoService);
 
   // to be done: add tests here
 
@@ -861,7 +861,7 @@ describe('API (acceptance)', () => {
   let app: HelloWorldApplication;
   // tslint:disable no-any
   let dredd: any;
-  before(initEnvironment);
+  beforeAll(initEnvironment);
   after(async () => {
     await app.stop();
   });
@@ -933,8 +933,8 @@ describe('Product (acceptance)', () => {
   let app: HelloWorldApplication;
   let client: Client;
 
-  before(givenEmptyDatabase);
-  before(givenRunningApp);
+  beforeAll(givenEmptyDatabase);
+  beforeAll(givenRunningApp);
   after(async () => {
     await app.stop();
   });

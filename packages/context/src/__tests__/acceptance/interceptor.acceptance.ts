@@ -243,7 +243,7 @@ describe('Interceptor', () => {
     }).to.throw(/@intercept cannot be used on a property/);
   });
 
-  context('method dependency injection', () => {
+  describe('method dependency injection', () => {
     it('invokes interceptors on a static method', async () => {
       class MyController {
         // Apply `log` to a static method with parameter injection
@@ -281,7 +281,7 @@ describe('Interceptor', () => {
     });
   });
 
-  context('class level interceptors', () => {
+  describe('class level interceptors', () => {
     it('invokes sync and async interceptors', async () => {
       // Apply `log` to all methods on the class
       @intercept(log)
@@ -377,7 +377,7 @@ describe('Interceptor', () => {
     });
   });
 
-  context('global interceptors', () => {
+  describe('global interceptors', () => {
     beforeEach(givenGlobalInterceptor);
 
     it('invokes sync and async interceptors', async () => {

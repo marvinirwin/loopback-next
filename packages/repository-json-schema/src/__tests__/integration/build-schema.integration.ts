@@ -22,7 +22,7 @@ import {
 
 describe('build-schema', () => {
   describe('modelToJsonSchema', () => {
-    context('properties conversion', () => {
+    describe('properties conversion', () => {
       it('does not convert null or undefined property', () => {
         @model()
         class TestModel {
@@ -305,7 +305,7 @@ describe('build-schema', () => {
         });
       });
 
-      context('with custom type properties', () => {
+      describe('with custom type properties', () => {
         it('properly converts undecorated custom type properties', () => {
           class CustomType {
             prop: string;
@@ -591,7 +591,7 @@ describe('build-schema', () => {
       });
     });
 
-    context('model conversion', () => {
+    describe('model conversion', () => {
       @model()
       class Category {
         @property.array(() => Product)
@@ -691,7 +691,7 @@ describe('build-schema', () => {
       getJsonSchema(Category, JSON_SCHEMA_OPTIONS);
       expect(JSON_SCHEMA_OPTIONS).to.be.empty();
     });
-    context('circular reference', () => {
+    describe('circular reference', () => {
       @model()
       class Category {
         @property.array(() => Product)

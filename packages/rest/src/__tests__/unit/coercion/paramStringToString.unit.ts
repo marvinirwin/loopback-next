@@ -19,11 +19,11 @@ const REQUIRED_STRING_PARAM = {
 };
 
 describe('coerce param from string to string - required', () => {
-  context('valid values', () => {
+  describe('valid values', () => {
     test(REQUIRED_STRING_PARAM, 'text', 'text');
   });
 
-  context('empty values trigger ERROR_BAD_REQUEST', () => {
+  describe('empty values trigger ERROR_BAD_REQUEST', () => {
     // null, '' sent from request are converted to raw value ''
     test(
       REQUIRED_STRING_PARAM,
@@ -34,11 +34,11 @@ describe('coerce param from string to string - required', () => {
 });
 
 describe('coerce param from string to string - optional', () => {
-  context('valid values', () => {
+  describe('valid values', () => {
     test(OPTIONAL_STRING_PARAM, 'text', 'text');
   });
 
-  context('number-like strings are preserved as strings', () => {
+  describe('number-like strings are preserved as strings', () => {
     // octal (base 8)
     test(OPTIONAL_STRING_PARAM, '0664', '0664');
 
@@ -59,19 +59,19 @@ describe('coerce param from string to string - optional', () => {
     test(OPTIONAL_STRING_PARAM, '-1.234e+30', '-1.234e+30');
   });
 
-  context('empty collection converts to undefined', () => {
+  describe('empty collection converts to undefined', () => {
     // [], {} sent from request are converted to raw value undefined
     test(OPTIONAL_STRING_PARAM, undefined, undefined);
   });
 
-  context('empty values are allowed', () => {
+  describe('empty values are allowed', () => {
     // null, '' sent from request are converted to raw value ''
     test(OPTIONAL_STRING_PARAM, '', '');
     test(OPTIONAL_STRING_PARAM, 'null', 'null');
     test(OPTIONAL_STRING_PARAM, 'undefined', 'undefined');
   });
 
-  context('object values trigger ERROR_BAD_REQUEST', () => {
+  describe('object values trigger ERROR_BAD_REQUEST', () => {
     test(
       OPTIONAL_STRING_PARAM,
       {a: true},

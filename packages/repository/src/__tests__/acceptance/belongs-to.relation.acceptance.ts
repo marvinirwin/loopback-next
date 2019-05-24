@@ -21,9 +21,9 @@ describe('BelongsTo relation', () => {
   let customerRepo: CustomerRepository;
   let orderRepo: OrderRepository;
 
-  before(givenApplicationWithMemoryDB);
-  before(givenBoundCrudRepositoriesForCustomerAndOrder);
-  before(givenOrderController);
+  beforeAll(givenApplicationWithMemoryDB);
+  beforeAll(givenBoundCrudRepositoriesForCustomerAndOrder);
+  beforeAll(givenOrderController);
 
   beforeEach(async () => {
     await orderRepo.deleteAll();

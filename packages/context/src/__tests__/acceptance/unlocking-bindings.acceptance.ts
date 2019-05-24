@@ -4,18 +4,18 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {expect} from '@loopback/testlab';
-import {Context, Binding} from '../..';
+import {Binding, Context} from '../..';
 
 describe(`Context bindings - Unlocking bindings`, () => {
   describe('Unlocking a locked binding', () => {
     let ctx: Context;
     let binding: Binding;
-    before('given a context', createContext);
-    before('and a bound key `foo` that is locked', createLockedBinding);
+    beforeAll(createContext);
+    beforeAll(createLockedBinding);
 
     describe('when the binding', () => {
-      context('is unlocked', () => {
-        before(unlockBinding);
+      describe('is unlocked', () => {
+        beforeAll(unlockBinding);
 
         it("sets it's lock state to false", () => {
           expect(binding.isLocked).to.be.false();
@@ -28,7 +28,7 @@ describe(`Context bindings - Unlocking bindings`, () => {
     });
 
     describe('when the context', () => {
-      context('rebinds the duplicate key with an unlocked binding', () => {
+      describe('rebinds the duplicate key with an unlocked binding', () => {
         it('does not throw a rebinding error', () => {
           const operation = () => ctx.bind('foo').to('baz');
           expect(operation).to.not.throw();

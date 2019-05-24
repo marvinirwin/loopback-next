@@ -4,10 +4,10 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {Client, expect} from '@loopback/testlab';
-import {setupExpressApplication, givenNote} from './test-helper';
 import {NoteApplication} from '../../application';
 import {NoteRepository} from '../../repositories';
 import {ExpressServer} from '../../server';
+import {givenNote, setupExpressApplication} from './test-helper';
 
 describe('NoteApplication', () => {
   let server: ExpressServer;
@@ -15,7 +15,7 @@ describe('NoteApplication', () => {
   let lbApp: NoteApplication;
   let noteRepo: NoteRepository;
 
-  before('setupApplication', async () => {
+  beforeAll(async () => {
     ({server, client, lbApp} = await setupExpressApplication());
     await changeDataSourceConfig();
     await givenNoteRepository();

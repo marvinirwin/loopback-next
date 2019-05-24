@@ -13,7 +13,7 @@ import {
 } from '@loopback/testlab';
 import {TodoListApplication} from '../../application';
 import {Todo, TodoList} from '../../models/';
-import {TodoRepository, TodoListRepository} from '../../repositories/';
+import {TodoListRepository, TodoRepository} from '../../repositories/';
 import {givenTodo, givenTodoList} from '../helpers';
 
 describe('TodoListApplication', () => {
@@ -22,11 +22,11 @@ describe('TodoListApplication', () => {
   let todoRepo: TodoRepository;
   let todoListRepo: TodoListRepository;
 
-  before(givenRunningApplicationWithCustomConfiguration);
+  beforeAll(givenRunningApplicationWithCustomConfiguration);
   after(() => app.stop());
 
-  before(givenTodoRepositories);
-  before(() => {
+  beforeAll(givenTodoRepositories);
+  beforeAll(() => {
     client = createRestAppClient(app);
   });
 
@@ -54,7 +54,7 @@ describe('TodoListApplication', () => {
       .expect(422);
   });
 
-  context('when dealing with a single persisted todo', () => {
+  describe('when dealing with a single persisted todo', () => {
     let persistedTodo: Todo;
 
     beforeEach(async () => {

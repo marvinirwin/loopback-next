@@ -28,7 +28,7 @@ describe('body parser', () => {
     type: 'object',
   };
   let requestBodyParser: RequestBodyParser;
-  before(givenRequestBodyParser);
+  beforeAll(givenRequestBodyParser);
 
   it('parses body parameter with multiple media types', async () => {
     const req = givenRequest({

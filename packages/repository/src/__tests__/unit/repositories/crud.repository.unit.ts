@@ -110,7 +110,7 @@ describe('CrudRepositoryImpl', () => {
   let ds: DataSource;
   let repo: CrudRepository<Customer>;
 
-  before(() => {
+  beforeAll(() => {
     const connector: CrudConnector = new CrudConnectorStub();
     ds = {
       name: 'myDataSource',

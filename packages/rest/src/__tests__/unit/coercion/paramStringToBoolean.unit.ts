@@ -3,9 +3,9 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {test} from './utils';
-import {RestHttpErrors} from '../../../';
 import {ParameterLocation} from '@loopback/openapi-v3-types';
+import {RestHttpErrors} from '../../../';
+import {test} from './utils';
 
 const BOOLEAN_PARAM = {
   in: <ParameterLocation>'path',
@@ -21,7 +21,7 @@ const REQUIRED_BOOLEAN_PARAM = {
 };
 
 describe('coerce param from string to boolean - required', function() {
-  context('valid values', () => {
+  describe('valid values', () => {
     test(REQUIRED_BOOLEAN_PARAM, 'false', false);
     test(REQUIRED_BOOLEAN_PARAM, 'true', true);
     test(REQUIRED_BOOLEAN_PARAM, 'FALSE', false);
@@ -30,7 +30,7 @@ describe('coerce param from string to boolean - required', function() {
     test(REQUIRED_BOOLEAN_PARAM, '1', true);
   });
 
-  context('empty values trigger ERROR_BAD_REQUEST', () => {
+  describe('empty values trigger ERROR_BAD_REQUEST', () => {
     // null, '' sent from request are converted to raw value ''
     test(
       REQUIRED_BOOLEAN_PARAM,
@@ -41,7 +41,7 @@ describe('coerce param from string to boolean - required', function() {
 });
 
 describe('coerce param from string to boolean - optional', function() {
-  context('valid values', () => {
+  describe('valid values', () => {
     test(BOOLEAN_PARAM, 'false', false);
     test(BOOLEAN_PARAM, 'true', true);
     test(BOOLEAN_PARAM, 'FALSE', false);
@@ -50,7 +50,7 @@ describe('coerce param from string to boolean - optional', function() {
     test(BOOLEAN_PARAM, '1', true);
   });
 
-  context('invalid values should trigger ERROR_BAD_REQUEST', () => {
+  describe('invalid values should trigger ERROR_BAD_REQUEST', () => {
     test(
       BOOLEAN_PARAM,
       'text',
@@ -69,11 +69,11 @@ describe('coerce param from string to boolean - optional', function() {
     );
   });
 
-  context('empty collection converts to undefined', () => {
+  describe('empty collection converts to undefined', () => {
     test(BOOLEAN_PARAM, undefined, undefined);
   });
 
-  context('empty values trigger ERROR_BAD_REQUEST', () => {
+  describe('empty values trigger ERROR_BAD_REQUEST', () => {
     // null, '' sent from request are converted to raw value ''
     test(BOOLEAN_PARAM, '', RestHttpErrors.invalidData('', BOOLEAN_PARAM.name));
   });

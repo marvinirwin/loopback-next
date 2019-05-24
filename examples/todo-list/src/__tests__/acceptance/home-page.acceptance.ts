@@ -11,7 +11,7 @@ describe('HomePage', () => {
   let app: TodoListApplication;
   let client: Client;
 
-  before('setupApplication', async () => {
+  beforeAll(async () => {
     ({app, client} = await setupApplication());
   });
 

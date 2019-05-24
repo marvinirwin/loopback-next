@@ -29,7 +29,7 @@ const readFile = promisify(fs.readFile);
 describe('app-generator extending BaseGenerator', baseTests);
 describe('generator-loopback4:app', tests);
 describe('app-generator specific files', () => {
-  before(() => {
+  beforeAll(() => {
     return helpers.run(generator).withPrompts(props);
   });
   it('generates all the proper files', () => {
@@ -119,7 +119,7 @@ describe('app-generator specific files', () => {
 });
 
 describe('app-generator with docker disabled', () => {
-  before(() => {
+  beforeAll(() => {
     return helpers
       .run(generator)
       .withOptions({docker: false})
@@ -135,7 +135,7 @@ describe('app-generator with docker disabled', () => {
 });
 
 describe('app-generator with --applicationName', () => {
-  before(() => {
+  beforeAll(() => {
     return helpers
       .run(generator)
       .withOptions({applicationName: 'MyApp'})
@@ -156,7 +156,7 @@ describe('app-generator with --applicationName', () => {
 
 // The test takes about 1 min to install dependencies
 function testFormat() {
-  before(function() {
+  beforeAll(function() {
     this.timeout(90 * 1000);
     return helpers
       .run(generator)

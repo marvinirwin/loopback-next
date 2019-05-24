@@ -47,8 +47,8 @@ describe('Product (acceptance)', () => {
   let app: HelloWorldApp;
   let request: Client;
 
-  before(givenEmptyDatabase);
-  before(givenRunningApp);
+  beforeAll(givenEmptyDatabase);
+  beforeAll(givenRunningApp);
 
   it('retrieves product details', async () => {
     // arrange
@@ -600,7 +600,7 @@ describe('Sequence (acceptance)', () => {
   let app: HelloWorldApp;
   let request: Client;
 
-  before(givenEmptyDatabase);
+  beforeAll(givenEmptyDatabase);
   beforeEach(givenRunningApp);
 
   it('prints a log line for each incoming request', async () => {

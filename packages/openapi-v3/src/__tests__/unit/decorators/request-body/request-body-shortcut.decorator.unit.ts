@@ -4,10 +4,10 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {expect} from '@loopback/testlab';
-import {getControllerSpec, requestBody, post} from '../../../../';
+import {getControllerSpec, post, requestBody} from '../../../../';
 
 describe('requestBody decorator - shortcuts', () => {
-  context('array', () => {
+  describe('array', () => {
     it('generates the correct schema spec for an array argument', () => {
       const description = 'an array of names';
       class MyController {

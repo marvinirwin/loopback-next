@@ -25,7 +25,7 @@ describe('caching interceptor', () => {
 
   beforeEach(clearCache);
 
-  context('as a binding key', () => {
+  describe('as a binding key', () => {
     class ControllerWithInterceptorBinding {
       @intercept('caching-interceptor')
       @get('/toUpperCase/{text}')
@@ -34,7 +34,7 @@ describe('caching interceptor', () => {
       }
     }
 
-    before(givenAClient);
+    beforeAll(givenAClient);
     after(async () => {
       await app.stop();
     });
@@ -61,7 +61,7 @@ describe('caching interceptor', () => {
     }
   });
 
-  context('as an interceptor function', () => {
+  describe('as an interceptor function', () => {
     class ControllerWithInterceptorFunction {
       @intercept(cache)
       @get('/toLowerCase/{text}')
@@ -70,7 +70,7 @@ describe('caching interceptor', () => {
       }
     }
 
-    before(givenAClient);
+    beforeAll(givenAClient);
     after(async () => {
       await app.stop();
     });

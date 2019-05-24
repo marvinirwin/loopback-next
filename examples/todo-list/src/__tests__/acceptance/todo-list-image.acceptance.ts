@@ -23,12 +23,12 @@ describe('TodoListApplication', () => {
 
   let persistedTodoList: TodoList;
 
-  before(givenRunningApplicationWithCustomConfiguration);
+  beforeAll(givenRunningApplicationWithCustomConfiguration);
   after(() => app.stop());
 
-  before(givenTodoListImageRepository);
-  before(givenTodoListRepository);
-  before(() => {
+  beforeAll(givenTodoListImageRepository);
+  beforeAll(givenTodoListRepository);
+  beforeAll(() => {
     client = createRestAppClient(app);
   });
 

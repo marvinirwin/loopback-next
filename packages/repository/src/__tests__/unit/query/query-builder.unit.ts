@@ -5,13 +5,13 @@
 
 import {expect} from '@loopback/testlab';
 import {
+  AnyObject,
   FilterBuilder,
-  WhereBuilder,
   filterTemplate,
   isFilter,
-  AnyObject,
-  Where,
   KeyOf,
+  Where,
+  WhereBuilder,
 } from '../../../';
 
 describe('WhereBuilder', () => {
@@ -197,7 +197,7 @@ describe('WhereBuilder', () => {
 });
 
 describe('FilterBuilder', () => {
-  context('isFilter', () => {
+  describe('isFilter', () => {
     it('returns false for objects containing illegal fields', () => {
       const badFilter = {where: {}, badKey: 'bad key'};
       expect(isFilter(badFilter)).to.be.false();

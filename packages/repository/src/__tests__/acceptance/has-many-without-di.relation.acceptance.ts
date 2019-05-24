@@ -24,9 +24,9 @@ describe('HasMany relation', () => {
   let customerRepo: CustomerRepository;
   let orderRepo: OrderRepository;
 
-  before(givenDataSource);
-  before(givenOrderRepository);
-  before(givenCustomerRepository);
+  beforeAll(givenDataSource);
+  beforeAll(givenOrderRepository);
+  beforeAll(givenCustomerRepository);
   beforeEach(async () => {
     await orderRepo.deleteAll();
     existingCustomerId = (await givenPersistedCustomerInstance()).id;

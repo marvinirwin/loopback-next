@@ -13,8 +13,8 @@ describe('InvocationContext', () => {
   let invalidInvocationCtx: InvocationContext;
   let invalidInvocationCtxForStaticMethod: InvocationContext;
 
-  before(givenContext);
-  before(givenInvocationContext);
+  beforeAll(givenContext);
+  beforeAll(givenInvocationContext);
 
   it('has a getter for targetClass', () => {
     expect(invocationCtxForGreet.targetClass).to.equal(MyController);

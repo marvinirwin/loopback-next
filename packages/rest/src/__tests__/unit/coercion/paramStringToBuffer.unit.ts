@@ -3,9 +3,9 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {test} from './utils';
 import {ParameterLocation} from '@loopback/openapi-v3-types';
 import {RestHttpErrors} from '../../..';
+import {test} from './utils';
 
 const BUFFER_PARAM = {
   in: <ParameterLocation>'path',
@@ -21,7 +21,7 @@ const REQUIRED_BUFFER_PARAM = {
 };
 
 describe('coerce param from string to buffer - required', () => {
-  context('valid value', () => {
+  describe('valid value', () => {
     const testValues = {
       base64: Buffer.from('Hello World').toString('base64'),
     };
@@ -33,7 +33,7 @@ describe('coerce param from string to buffer - required', () => {
     );
   });
 
-  context('empty values trigger ERROR_BAD_REQUEST', () => {
+  describe('empty values trigger ERROR_BAD_REQUEST', () => {
     // null, '' sent from request are converted to raw value ''
     test(
       REQUIRED_BUFFER_PARAM,
@@ -44,7 +44,7 @@ describe('coerce param from string to buffer - required', () => {
 });
 
 describe('coerce param from string to buffer - optional', () => {
-  context('valid values', () => {
+  describe('valid values', () => {
     const testValues = {
       base64: Buffer.from('Hello World').toString('base64'),
     };
@@ -56,7 +56,7 @@ describe('coerce param from string to buffer - optional', () => {
     );
   });
 
-  context('empty collection converts to undefined', () => {
+  describe('empty collection converts to undefined', () => {
     // [], {} sent from request are converted to raw value undefined
     test(BUFFER_PARAM, undefined, undefined);
   });

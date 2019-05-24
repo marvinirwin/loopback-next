@@ -13,9 +13,9 @@ describe('Application', function() {
   // tslint:disable-next-line:no-invalid-this
   this.timeout(30000);
 
-  before(givenAnApplication);
+  beforeAll(givenAnApplication);
 
-  before(async () => {
+  beforeAll(async () => {
     await app.boot();
     await app.start();
     client = createRestAppClient(app);

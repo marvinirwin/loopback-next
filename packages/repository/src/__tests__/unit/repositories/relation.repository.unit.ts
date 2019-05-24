@@ -29,7 +29,7 @@ describe('relation repository', () => {
 
   beforeEach(setupStubbedCustomerRepository);
 
-  context('HasManyRepository interface', () => {
+  describe('HasManyRepository interface', () => {
     /**
      * The class below is declared as test for the HasManyEntityCrudRepository
      * interface. The TS Compiler will complain if the interface changes.
@@ -67,7 +67,7 @@ describe('relation repository', () => {
     }
   });
 
-  context('DefaultHasManyEntityCrudRepository', () => {
+  describe('DefaultHasManyEntityCrudRepository', () => {
     it('can create related model instance', async () => {
       const constraint: Partial<Customer> = {age: 25};
       const hasManyCrudInstance = givenDefaultHasManyInstance(constraint);
@@ -88,7 +88,7 @@ describe('relation repository', () => {
       });
     });
 
-    context('patch', () => {
+    describe('patch', () => {
       it('can patch related model instance', async () => {
         const constraint: Partial<Customer> = {name: 'Jane'};
         const hasManyCrudInstance = givenDefaultHasManyInstance(constraint);

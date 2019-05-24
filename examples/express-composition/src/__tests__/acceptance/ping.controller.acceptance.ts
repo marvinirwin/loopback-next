@@ -4,14 +4,14 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {Client, expect} from '@loopback/testlab';
-import {setupExpressApplication} from './test-helper';
 import {ExpressServer} from '../../server';
+import {setupExpressApplication} from './test-helper';
 
 describe('PingController', () => {
   let server: ExpressServer;
   let client: Client;
 
-  before('setupApplication', async () => {
+  beforeAll(async () => {
     ({server, client} = await setupExpressApplication());
   });
 

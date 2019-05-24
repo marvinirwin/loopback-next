@@ -25,7 +25,7 @@ describe('schema to model', () => {
     '../../fixtures/openapi/3.0/customer.yaml',
   );
 
-  before(async () => {
+  beforeAll(async () => {
     usptoSpec = await loadSpec(uspto);
     usptoSpecAnonymous = await loadAndBuildSpec(uspto, {
       promoteAnonymousSchemas: true,

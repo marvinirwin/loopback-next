@@ -5,6 +5,12 @@
 
 import * as debugFactory from 'debug';
 import {EventEmitter} from 'events';
+/**
+ * WARNING: This following import must happen after the polyfill. The
+ * `auto-import` by an IDE such as VSCode may move the import before the
+ * polyfill. It must be then fixed manually.
+ */
+import {iterator, multiple} from 'p-event';
 import {v1 as uuidv1} from 'uuid';
 import {Binding, BindingTag} from './binding';
 import {
@@ -44,12 +50,6 @@ if (!Symbol.asyncIterator) {
   // tslint:disable-next-line:no-any
   (Symbol as any).asyncIterator = Symbol.for('Symbol.asyncIterator');
 }
-/**
- * WARNING: This following import must happen after the polyfill. The
- * `auto-import` by an IDE such as VSCode may move the import before the
- * polyfill. It must be then fixed manually.
- */
-import {iterator, multiple} from 'p-event';
 
 const debug = debugFactory('loopback:context');
 

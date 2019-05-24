@@ -3,9 +3,9 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {test} from './utils';
 import {ParameterLocation} from '@loopback/openapi-v3-types';
 import {RestHttpErrors} from '../../../';
+import {test} from './utils';
 
 const DATE_PARAM = {
   in: <ParameterLocation>'path',
@@ -21,11 +21,11 @@ const REQUIRED_DATETIME_PARAM = {
 };
 
 describe('coerce param from string to date - required', () => {
-  context('valid values', () => {
+  describe('valid values', () => {
     test(REQUIRED_DATETIME_PARAM, '2016-05-19', new Date('2016-05-19'));
   });
 
-  context('empty values trigger ERROR_BAD_REQUEST', () => {
+  describe('empty values trigger ERROR_BAD_REQUEST', () => {
     // null, '' sent from request are converted to raw value ''
     test(
       REQUIRED_DATETIME_PARAM,
@@ -36,11 +36,11 @@ describe('coerce param from string to date - required', () => {
 });
 
 describe('coerce param from string to date - optional', () => {
-  context('valid values', () => {
+  describe('valid values', () => {
     test(DATE_PARAM, '2015-03-01', new Date('2015-03-01'));
   });
 
-  context('invalid values trigger ERROR_BAD_REQUEST', () => {
+  describe('invalid values trigger ERROR_BAD_REQUEST', () => {
     test(
       DATE_PARAM,
       '2015-04-32',
@@ -53,17 +53,17 @@ describe('coerce param from string to date - optional', () => {
     );
   });
 
-  context('empty values trigger ERROR_BAD_REQUEST', () => {
+  describe('empty values trigger ERROR_BAD_REQUEST', () => {
     // null, '' sent from request are converted to raw value ''
     test(DATE_PARAM, '', RestHttpErrors.invalidData('', DATE_PARAM.name));
   });
 
-  context('empty collection converts to undefined', () => {
+  describe('empty collection converts to undefined', () => {
     // [], {} sent from request are converted to raw value undefined
     test(DATE_PARAM, undefined, undefined);
   });
 
-  context('All other non-date values trigger ERROR_BAD_REQUEST', () => {
+  describe('All other non-date values trigger ERROR_BAD_REQUEST', () => {
     // 'false', false, 'true', true, 'text' sent from request are converted to a string
     test(
       DATE_PARAM,

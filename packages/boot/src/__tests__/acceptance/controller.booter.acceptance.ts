@@ -16,7 +16,7 @@ describe('controller booter acceptance tests', () => {
   const SANDBOX_PATH = resolve(__dirname, '../../.sandbox');
   const sandbox = new TestSandbox(SANDBOX_PATH);
 
-  beforeEach('reset sandbox', () => sandbox.reset());
+  beforeEach(() => sandbox.reset());
   beforeEach(getApp);
 
   afterEach(stopApp);

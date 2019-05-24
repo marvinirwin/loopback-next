@@ -50,7 +50,7 @@ describe('Validation at REST level', () => {
 
   // This is the standard use case that most LB4 applications should use.
   // The request body specification is inferred from a decorated model class.
-  context('for request body specified via model definition', () => {
+  describe('for request body specified via model definition', () => {
     class ProductController {
       @post('/products')
       async create(
@@ -60,7 +60,7 @@ describe('Validation at REST level', () => {
       }
     }
 
-    before(() => givenAnAppAndAClient(ProductController));
+    beforeAll(() => givenAnAppAndAClient(ProductController));
     after(() => app.stop());
 
     it('accepts valid values', () => serverAcceptsValidRequestBody());
@@ -95,7 +95,7 @@ describe('Validation at REST level', () => {
 
   // A request body schema can be provided explicitly by the user
   // as an inlined content[type].schema property.
-  context('for fully-specified request body', () => {
+  describe('for fully-specified request body', () => {
     class ProductControllerWithFullSchema {
       @post('/products')
       async create(
@@ -108,7 +108,7 @@ describe('Validation at REST level', () => {
       }
     }
 
-    before(() => givenAnAppAndAClient(ProductControllerWithFullSchema));
+    beforeAll(() => givenAnAppAndAClient(ProductControllerWithFullSchema));
     after(() => app.stop());
 
     it('accepts valid values', () => serverAcceptsValidRequestBody());
@@ -117,7 +117,7 @@ describe('Validation at REST level', () => {
       serverRejectsRequestWithMissingRequiredValues());
   });
 
-  context('for different schemas per media type', () => {
+  describe('for different schemas per media type', () => {
     let spec = aBodySpec(PRODUCT_SPEC, {}, 'application/json');
     spec = aBodySpec(
       PRODUCT_SPEC_WITH_DESCRIPTION,
@@ -136,7 +136,7 @@ describe('Validation at REST level', () => {
       }
     }
 
-    before(() => givenAnAppAndAClient(ProductControllerWithFullSchema));
+    beforeAll(() => givenAnAppAndAClient(ProductControllerWithFullSchema));
     after(() => app.stop());
 
     it('accepts valid values for json', () => serverAcceptsValidRequestBody());
@@ -150,7 +150,7 @@ describe('Validation at REST level', () => {
 
   // A request body schema can be provided explicitly by the user as a reference
   // to a schema shared in the global `components.schemas` object.
-  context('for request body specified via a reference', () => {
+  describe('for request body specified via a reference', () => {
     @api({
       paths: {},
       components: {
@@ -172,7 +172,9 @@ describe('Validation at REST level', () => {
       }
     }
 
-    before(() => givenAnAppAndAClient(ProductControllerReferencingComponents));
+    beforeAll(() =>
+      givenAnAppAndAClient(ProductControllerReferencingComponents),
+    );
     after(() => app.stop());
 
     it('accepts valid values', () => serverAcceptsValidRequestBody());

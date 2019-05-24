@@ -21,11 +21,11 @@ describe('TodoListApplication', () => {
   let client: Client;
   let todoListRepo: TodoListRepository;
 
-  before(givenRunningApplicationWithCustomConfiguration);
+  beforeAll(givenRunningApplicationWithCustomConfiguration);
   after(() => app.stop());
 
-  before(givenTodoListRepository);
-  before(() => {
+  beforeAll(givenTodoListRepository);
+  beforeAll(() => {
     client = createRestAppClient(app);
   });
 
@@ -44,7 +44,7 @@ describe('TodoListApplication', () => {
     expect(result).to.containDeep(todoList);
   });
 
-  context('when dealing with multiple persisted todoLists', () => {
+  describe('when dealing with multiple persisted todoLists', () => {
     let persistedTodoLists: TodoList[];
 
     beforeEach(async () => {
@@ -114,7 +114,7 @@ describe('TodoListApplication', () => {
     });
   });
 
-  context('when dealing with a single persisted todoList', () => {
+  describe('when dealing with a single persisted todoList', () => {
     let persistedTodoList: TodoList;
 
     beforeEach(async () => {

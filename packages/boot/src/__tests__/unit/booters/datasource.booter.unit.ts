@@ -24,7 +24,7 @@ describe('datasource booter unit tests', () => {
   let app: AppWithRepo;
   let stub: sinon.SinonStub;
 
-  beforeEach('reset sandbox', () => sandbox.reset());
+  beforeEach(() => sandbox.reset());
   beforeEach(getApp);
   beforeEach(createStub);
   afterEach(restoreStub);

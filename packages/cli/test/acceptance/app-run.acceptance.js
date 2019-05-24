@@ -23,7 +23,7 @@ describe('app-generator (SLOW)', function() {
     outdir: sandbox,
   };
 
-  before('scaffold a new application', async function createAppProject() {
+  beforeAll(async function createAppProject() {
     // Increase the timeout to 1 minute to accommodate slow CI build machines
     this.timeout(60 * 1000);
     await helpers
@@ -34,7 +34,7 @@ describe('app-generator (SLOW)', function() {
       .withPrompts(props);
   });
 
-  before('install dependencies', async function installDependencies() {
+  beforeAll(async function installDependencies() {
     // Run `lerna bootstrap --scope @loopback/sandbox-app`
     // WARNING: It takes a while to run `lerna bootstrap`
     this.timeout(15 * 60 * 1000);

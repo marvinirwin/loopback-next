@@ -20,7 +20,7 @@ describe('CalculatorService', function() {
   // tslint:disable-next-line:no-invalid-this
   this.timeout(30000);
 
-  before(givenACalculatorService);
+  beforeAll(givenACalculatorService);
 
   it('adds two numbers', async () => {
     const response = await calculatorService.add(<CalculatorParameters>{

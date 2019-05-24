@@ -41,10 +41,10 @@ describe('HasMany relation', () => {
     typeof Customer.prototype.id
   >;
 
-  before(givenCrudRepositories);
-  before(givenPersistedCustomerInstance);
-  before(givenConstrainedRepositories);
-  before(givenRepositoryFactoryFunctions);
+  beforeAll(givenCrudRepositories);
+  beforeAll(givenPersistedCustomerInstance);
+  beforeAll(givenConstrainedRepositories);
+  beforeAll(givenRepositoryFactoryFunctions);
 
   beforeEach(async function resetDatabase() {
     await orderRepo.deleteAll();
@@ -159,8 +159,8 @@ describe('BelongsTo relation', () => {
     typeof Order.prototype.id
   >;
 
-  before(givenCrudRepositories);
-  before(givenAccessor);
+  beforeAll(givenCrudRepositories);
+  beforeAll(givenAccessor);
   beforeEach(async function resetDatabase() {
     await Promise.all([
       customerRepo.deleteAll(),

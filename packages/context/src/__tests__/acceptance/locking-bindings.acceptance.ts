@@ -4,24 +4,24 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {expect} from '@loopback/testlab';
-import {Context, Binding} from '../..';
+import {Binding, Context} from '../..';
 
 describe('Context bindings - Locking bindings', () => {
   describe('Binding with a duplicate key', () => {
     let ctx: Context;
     let binding: Binding;
-    before('given a context', createContext);
-    before('and a bound key `foo`', createBinding);
+    beforeAll(createContext);
+    beforeAll(createBinding);
 
     describe('when the binding', () => {
-      context('is created', () => {
+      describe('is created', () => {
         it('is locked by default', () => {
           expect(binding.isLocked).to.be.false();
         });
       });
 
-      context('is locked', () => {
-        before(lockBinding);
+      describe('is locked', () => {
+        beforeAll(lockBinding);
 
         it("sets it's lock state to true", () => {
           expect(binding.isLocked).to.be.true();
@@ -34,7 +34,7 @@ describe('Context bindings - Locking bindings', () => {
     });
 
     describe('when the context', () => {
-      context('is binding to an existing key', () => {
+      describe('is binding to an existing key', () => {
         it('throws a rebind error', () => {
           const key = 'foo';
           const operation = () => ctx.bind('foo');

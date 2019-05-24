@@ -33,7 +33,7 @@ import {
 
 describe('operationArgsParser', () => {
   let requestBodyParser: RequestBodyParser;
-  before(givenRequestBodyParser);
+  beforeAll(givenRequestBodyParser);
 
   it('parses path parameters', async () => {
     const req = givenRequest();
@@ -271,7 +271,7 @@ describe('operationArgsParser', () => {
     expect(args).to.eql(['<html><body><h1>Hello</h1></body></html>']);
   });
 
-  context('in:query style:deepObject', () => {
+  describe('in:query style:deepObject', () => {
     it('parses JSON-encoded string value', async () => {
       const req = givenRequest({
         url: '/?value={"key":"value"}',

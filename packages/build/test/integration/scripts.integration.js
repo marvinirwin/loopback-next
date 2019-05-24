@@ -321,7 +321,7 @@ describe('build', function() {
 
   describe('with LERNA_ROOT_PATH', () => {
     const repoRoot = path.join(__dirname, '../../../..');
-    before(() => (process.env.LERNA_ROOT_PATH = repoRoot));
+    beforeAll(() => (process.env.LERNA_ROOT_PATH = repoRoot));
 
     it('sets --skip-public-assets for apidocs', () => {
       var run = require('../../bin/generate-apidocs');

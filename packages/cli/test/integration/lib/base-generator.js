@@ -118,7 +118,7 @@ module.exports = function(generator) {
     describe('config from stdin', () => {
       let mock;
 
-      before(() => {
+      beforeAll(() => {
         mock = mockStdin.stdin();
       });
 

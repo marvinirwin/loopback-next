@@ -24,9 +24,9 @@ describe('HasMany relation', () => {
   let orderRepo: OrderRepository;
   let existingCustomerId: number;
 
-  before(givenApplicationWithMemoryDB);
-  before(givenBoundCrudRepositoriesForCustomerAndOrder);
-  before(givenCustomerController);
+  beforeAll(givenApplicationWithMemoryDB);
+  beforeAll(givenBoundCrudRepositoriesForCustomerAndOrder);
+  beforeAll(givenCustomerController);
 
   beforeEach(async () => {
     await orderRepo.deleteAll();
@@ -152,7 +152,7 @@ describe('HasMany relation', () => {
     ).to.be.rejectedWith(/`orders` is not defined/);
   });
 
-  context('when targeting the source model', () => {
+  describe('when targeting the source model', () => {
     it('gets the parent entity through the child entity', async () => {
       const parent = await customerRepo.create({name: 'parent customer'});
       const child = await customerRepo.create({

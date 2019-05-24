@@ -6,7 +6,7 @@ describe('HomePage', () => {
   let app: <%= project.applicationName %>;
   let client: Client;
 
-  before('setupApplication', async () => {
+  beforeAll(async () => {
     ({app, client} = await setupApplication());
   });
 

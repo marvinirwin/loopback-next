@@ -25,7 +25,7 @@ const FORM_DATA = 'multipart/form-data';
 describe('multipart/form-data parser', () => {
   let client: Client;
   let app: RestApplication;
-  before(givenAClient);
+  beforeAll(givenAClient);
   after(async () => {
     await app.stop();
   });

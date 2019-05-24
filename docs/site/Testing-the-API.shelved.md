@@ -132,7 +132,7 @@ output, you have all the pieces to write the test code:
 ```js
 describe('Api Spec End Points', () => {
   let dredd: any;
-  before(initEnvironment);
+  beforeAll(initEnvironment);
 
   describe('input/output test', () => {
 

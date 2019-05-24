@@ -20,7 +20,7 @@ const sandbox = new TestSandbox(SANDBOX_PATH);
 const expectedFile = path.join(SANDBOX_PATH, 'index.ts');
 
 describe('update-index unit tests', () => {
-  beforeEach('reset sandbox', () => sandbox.reset());
+  beforeEach(() => sandbox.reset());
 
   it('creates index.ts when not present', async () => {
     await updateIndex(SANDBOX_PATH, 'test.ts');

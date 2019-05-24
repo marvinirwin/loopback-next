@@ -4,17 +4,17 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {expect} from '@loopback/testlab';
-import {Context, Binding} from '../..';
+import {Binding, Context} from '../..';
 
 describe('Context bindings - Tagged bindings', () => {
   let ctx: Context;
   let binding: Binding;
-  before('given a context', createContext);
-  before(createBinding);
+  beforeAll(createContext);
+  beforeAll(createBinding);
 
   describe('tag', () => {
-    context('when the binding is tagged', () => {
-      before(tagBinding);
+    describe('when the binding is tagged', () => {
+      beforeAll(tagBinding);
 
       it('has a tag name', () => {
         expect(binding.tagNames).to.containEql('controller');
@@ -25,8 +25,8 @@ describe('Context bindings - Tagged bindings', () => {
       }
     });
 
-    context('when the binding is tagged with multiple names', () => {
-      before(tagBinding);
+    describe('when the binding is tagged with multiple names', () => {
+      beforeAll(tagBinding);
 
       it('has tags', () => {
         expect(binding.tagNames).to.containEql('controller');
@@ -38,8 +38,8 @@ describe('Context bindings - Tagged bindings', () => {
       }
     });
 
-    context('when the binding is tagged with name/value objects', () => {
-      before(tagBinding);
+    describe('when the binding is tagged with name/value objects', () => {
+      beforeAll(tagBinding);
 
       it('has tags', () => {
         expect(binding.tagNames).to.containEql('controller');

@@ -21,13 +21,13 @@ const rimraf = util.promisify(rimrafCb);
 
 describe('HttpCachingProxy', () => {
   let stubServerUrl: string;
-  before(givenStubServer);
+  beforeAll(givenStubServer);
   after(stopStubServer);
 
   let proxy: HttpCachingProxy;
   after(stopProxy);
 
-  beforeEach('clean cache dir', async () => await rimraf(CACHE_DIR));
+  beforeEach(async () => await rimraf(CACHE_DIR));
 
   it('provides "url" property when running', async () => {
     await givenRunningProxy();

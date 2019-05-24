@@ -3,15 +3,15 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {expect} from '@loopback/testlab';
-import {validateRequestBody} from '../../validation/request-body.validator';
-import {RestHttpErrors} from '../../';
-import {aBodySpec} from '../helpers';
 import {
   ReferenceObject,
   SchemaObject,
   SchemasObject,
 } from '@loopback/openapi-v3-types';
+import {expect} from '@loopback/testlab';
+import {RestHttpErrors} from '../../';
+import {validateRequestBody} from '../../validation/request-body.validator';
+import {aBodySpec} from '../helpers';
 
 const INVALID_MSG = RestHttpErrors.INVALID_REQUEST_BODY_MESSAGE;
 
@@ -196,7 +196,7 @@ describe('validateRequestBody', () => {
     );
   });
 
-  context('rejects array of data with wrong type - ', () => {
+  describe('rejects array of data with wrong type - ', () => {
     it('primitive types', () => {
       const details: RestHttpErrors.ValidationErrorDetails[] = [
         {

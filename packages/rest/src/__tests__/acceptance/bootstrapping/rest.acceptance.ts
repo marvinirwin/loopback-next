@@ -3,22 +3,22 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+import {Application} from '@loopback/core';
 import {expect, supertest} from '@loopback/testlab';
 import {
   DefaultSequence,
-  RestBindings,
-  RestServer,
-  RestComponent,
-  RestApplication,
   RequestContext,
+  RestApplication,
+  RestBindings,
+  RestComponent,
+  RestServer,
 } from '../../..';
-import {Application} from '@loopback/core';
 
 describe('Bootstrapping with RestComponent', () => {
-  context('with a user-defined sequence', () => {
+  describe('with a user-defined sequence', () => {
     let app: Application;
     let server: RestServer;
-    before(givenAppWithUserDefinedSequence);
+    beforeAll(givenAppWithUserDefinedSequence);
 
     it('binds the `sequence` key to the user-defined sequence', () => {
       // At this moment, the Sequence is not ready to be resolved

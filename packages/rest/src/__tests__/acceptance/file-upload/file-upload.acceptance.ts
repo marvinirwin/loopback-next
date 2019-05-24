@@ -24,7 +24,7 @@ import {
 describe('multipart/form-data', () => {
   let client: Client;
   let app: RestApplication;
-  before(givenAClient);
+  beforeAll(givenAClient);
   after(async () => {
     await app.stop();
   });

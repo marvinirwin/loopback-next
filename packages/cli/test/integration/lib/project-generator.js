@@ -230,7 +230,7 @@ module.exports = function(projGenerator, props, projectType) {
     });
 
     describe('without settings', () => {
-      before(() => {
+      beforeAll(() => {
         return helpers.run(projGenerator).withPrompts(props);
       });
 
@@ -300,7 +300,7 @@ module.exports = function(projGenerator, props, projectType) {
     });
 
     describe('with loopbackBuild disabled', () => {
-      before(() => {
+      beforeAll(() => {
         return helpers.run(projGenerator).withPrompts(
           Object.assign(
             {
@@ -349,7 +349,7 @@ module.exports = function(projGenerator, props, projectType) {
     });
 
     describe('with prettier disabled', () => {
-      before(() => {
+      beforeAll(() => {
         return helpers.run(projGenerator).withPrompts(
           Object.assign(
             {
@@ -373,7 +373,7 @@ module.exports = function(projGenerator, props, projectType) {
     });
 
     describe('with tslint disabled', () => {
-      before(() => {
+      beforeAll(() => {
         return helpers.run(projGenerator).withPrompts(
           Object.assign(
             {
@@ -397,7 +397,7 @@ module.exports = function(projGenerator, props, projectType) {
     });
 
     describe('with loopbackBuild & tslint disabled', () => {
-      before(() => {
+      beforeAll(() => {
         return helpers.run(projGenerator).withPrompts(
           Object.assign(
             {
@@ -434,7 +434,7 @@ module.exports = function(projGenerator, props, projectType) {
     });
 
     describe('with vscode disabled', () => {
-      before(() => {
+      beforeAll(() => {
         return helpers.run(projGenerator).withPrompts(
           Object.assign(
             {
@@ -457,7 +457,7 @@ module.exports = function(projGenerator, props, projectType) {
     });
 
     describe('with --skip-optional-prompts', () => {
-      before(() => {
+      beforeAll(() => {
         return helpers.run(projGenerator).withOptions({
           name: props.name,
           'skip-optional-prompts': true,

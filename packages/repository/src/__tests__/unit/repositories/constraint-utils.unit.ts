@@ -16,7 +16,7 @@ import {
 } from '../../..';
 
 describe('constraint utility functions', () => {
-  context('constrainFilter', () => {
+  describe('constrainFilter', () => {
     const inputFilter = filterBuilderHelper({
       fields: {a: true},
       where: {x: 'x'},
@@ -56,7 +56,7 @@ describe('constraint utility functions', () => {
       }).to.throw(/not implemented/);
     });
   });
-  context('constrainWhere', () => {
+  describe('constrainWhere', () => {
     const inputWhere: Where<{x: string; y: string; id: string}> = {
       x: 'x',
       y: 'y',
@@ -77,7 +77,7 @@ describe('constraint utility functions', () => {
     });
   });
 
-  context('constrainDataObject', () => {
+  describe('constrainDataObject', () => {
     it('constrains a single data object', () => {
       const input = new Order({description: 'order 1'});
       const constraint: Partial<Order> = {id: 2};

@@ -33,7 +33,7 @@ let realWorldAPIs = [
 ];
 
 describe('Real-world APIs', () => {
-  before(async function() {
+  beforeAll(async function() {
     // Set env var `APIS` to `*` to test against apis.guru directory
     if (process.env.APIS !== 'all') return;
 

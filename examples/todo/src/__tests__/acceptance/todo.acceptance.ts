@@ -28,14 +28,14 @@ describe('TodoApplication', () => {
   let todoRepo: TodoRepository;
 
   let cachingProxy: HttpCachingProxy;
-  before(async () => (cachingProxy = await givenCachingProxy()));
+  beforeAll(async () => (cachingProxy = await givenCachingProxy()));
   after(() => cachingProxy.stop());
 
-  before(givenRunningApplicationWithCustomConfiguration);
+  beforeAll(givenRunningApplicationWithCustomConfiguration);
   after(() => app.stop());
 
-  before(givenTodoRepository);
-  before(() => {
+  beforeAll(givenTodoRepository);
+  beforeAll(() => {
     client = createRestAppClient(app);
   });
 
@@ -85,7 +85,7 @@ describe('TodoApplication', () => {
     expect(result).to.containEql(todo);
   });
 
-  context('when dealing with a single persisted todo', () => {
+  describe('when dealing with a single persisted todo', () => {
     let persistedTodo: Todo;
 
     beforeEach(async () => {

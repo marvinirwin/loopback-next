@@ -3,7 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {Application, BindingScope, Component, bind} from '@loopback/core';
+import {Application, bind, BindingScope, Component} from '@loopback/core';
 import {expect, sinon} from '@loopback/testlab';
 import {
   Class,
@@ -81,7 +81,7 @@ describe('RepositoryMixin', () => {
     expectNoteRepoToBeBound(myApp);
   });
 
-  context('migrateSchema', () => {
+  describe('migrateSchema', () => {
     let app: AppWithRepoMixin;
     let migrateStub: sinon.SinonStub;
     let updateStub: sinon.SinonStub;

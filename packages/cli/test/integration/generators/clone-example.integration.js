@@ -23,7 +23,7 @@ const sandbox = new TestSandbox(SANDBOX_PATH);
 describe('cloneExampleFromGitHub (SLOW)', function() {
   this.timeout(20000);
 
-  beforeEach('reset sandbox', () => sandbox.reset());
+  beforeEach(() => sandbox.reset());
 
   it('extracts project files', async () => {
     const outDir = await downloadAndExtractExample(VALID_EXAMPLE, SANDBOX_PATH);

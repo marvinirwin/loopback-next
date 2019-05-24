@@ -3,12 +3,12 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {post, requestBody, getControllerSpec} from '../../../..';
-import {expect} from '@loopback/testlab';
 import {model, property} from '@loopback/repository';
+import {expect} from '@loopback/testlab';
+import {getControllerSpec, post, requestBody} from '../../../..';
 
 describe('requestBody decorator', () => {
-  context('can build a correct "RequestBody" spec and', () => {
+  describe('can build a correct "RequestBody" spec and', () => {
     it('persists "description" and "required" into the generated schema', () => {
       const requestSpec = {
         description: 'A sample request body',

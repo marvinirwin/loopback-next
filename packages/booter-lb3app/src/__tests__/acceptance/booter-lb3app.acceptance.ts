@@ -18,7 +18,7 @@ describe('booter-lb3app', () => {
   let app: CoffeeApplication;
   let client: Client;
 
-  before(async () => {
+  beforeAll(async () => {
     ({app, client} = await setupApplication({
       lb3app: {
         path: '../fixtures/lb3app/server/server',
@@ -30,7 +30,7 @@ describe('booter-lb3app', () => {
     if (app) await app.stop();
   });
 
-  context('generated OpenAPI spec', () => {
+  describe('generated OpenAPI spec', () => {
     it('uses different request-body schema for "create" operation', () => {
       const spec = app.restServer.getApiSpec();
       const createOp: OperationObject = spec.paths['/api/CoffeeShops'].post;
@@ -53,7 +53,7 @@ describe('booter-lb3app', () => {
     });
   });
 
-  context('mounting full LoopBack 3 application', () => {
+  describe('mounting full LoopBack 3 application', () => {
     it('creates and gets a LoopBack 3 CoffeeShop instance', async () => {
       const coffeeShop = givenCoffeeShop();
       const response = await client
@@ -96,8 +96,8 @@ describe('booter-lb3app', () => {
       ]);
     });
 
-    context('LoopBack 3 authentication', () => {
-      before(async () => {
+    describe('LoopBack 3 authentication', () => {
+      beforeAll(async () => {
         await givenUser();
       });
 
@@ -124,8 +124,8 @@ describe('booter-lb3app', () => {
     });
   });
 
-  context('mounting a simple LoopBack 3 application', () => {
-    before(async () => {
+  describe('mounting a simple LoopBack 3 application', () => {
+    beforeAll(async () => {
       ({app, client} = await setupApplication({
         lb3app: {path: '../fixtures/minimal-app'},
       }));
@@ -136,8 +136,8 @@ describe('booter-lb3app', () => {
     });
   });
 
-  context('mounting routes only of LoopBack 3 application', () => {
-    before(async () => {
+  describe('mounting routes only of LoopBack 3 application', () => {
+    beforeAll(async () => {
       ({app, client} = await setupApplication({
         lb3app: {
           path: '../fixtures/lb3app/server/server',

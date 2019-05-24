@@ -68,7 +68,7 @@ describe('Context constructor', () => {
 
 describe('Context', () => {
   let ctx: TestContext;
-  beforeEach('given a context', createContext);
+  beforeEach(createContext);
 
   describe('bind', () => {
     it('adds a binding into the registry', () => {
@@ -349,7 +349,7 @@ describe('Context', () => {
   });
 
   describe('findOrCreateBinding', () => {
-    context('with BindingCreationPolicy.ALWAYS_CREATE', () => {
+    describe('with BindingCreationPolicy.ALWAYS_CREATE', () => {
       it('creates a new binding even the key is bound', () => {
         const current = ctx.bind('foo');
         const actual: Binding = ctx.findOrCreateBinding(
@@ -368,7 +368,7 @@ describe('Context', () => {
       });
     });
 
-    context('with BindingCreationPolicy.NEVER_CREATE', () => {
+    describe('with BindingCreationPolicy.NEVER_CREATE', () => {
       it('returns the exiting binding if the key is bound', () => {
         const current = ctx.bind('foo');
         const actual: Binding = ctx.findOrCreateBinding(
@@ -388,7 +388,7 @@ describe('Context', () => {
       });
     });
 
-    context('with BindingCreationPolicy.CREATE_IF_NOT_BOUND', () => {
+    describe('with BindingCreationPolicy.CREATE_IF_NOT_BOUND', () => {
       it('returns the binding object registered under the given key', () => {
         const expected = ctx.bind('foo');
         const actual: Binding = ctx.findOrCreateBinding(
@@ -407,21 +407,18 @@ describe('Context', () => {
       });
     });
 
-    context(
-      'without bindingCreationPolicy (default: CREATE_IF_NOT_BOUND)',
-      () => {
-        it('returns the binding object registered under the given key', () => {
-          const expected = ctx.bind('foo');
-          const actual: Binding = ctx.findOrCreateBinding('foo');
-          expect(actual).to.be.exactly(expected);
-        });
+    describe('without bindingCreationPolicy (default: CREATE_IF_NOT_BOUND)', () => {
+      it('returns the binding object registered under the given key', () => {
+        const expected = ctx.bind('foo');
+        const actual: Binding = ctx.findOrCreateBinding('foo');
+        expect(actual).to.be.exactly(expected);
+      });
 
-        it('creates a new binding if the key is not bound', () => {
-          const binding = ctx.findOrCreateBinding('a-new-key');
-          expect(binding.key).to.eql('a-new-key');
-        });
-      },
-    );
+      it('creates a new binding if the key is not bound', () => {
+        const binding = ctx.findOrCreateBinding('a-new-key');
+        expect(binding.key).to.eql('a-new-key');
+      });
+    });
 
     it('rejects a key containing property separator', () => {
       const key = 'a' + BindingKey.PROPERTY_SEPARATOR + 'b';

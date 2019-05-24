@@ -24,12 +24,12 @@ describe('global caching interceptor', () => {
   let client: Client;
   let app: RestApplication;
 
-  before(givenAClient);
+  beforeAll(givenAClient);
   after(async () => {
     await app.stop();
   });
 
-  context('caching invocation for controller methods', () => {
+  describe('caching invocation for controller methods', () => {
     it('invokes the controller method if not cached', async () => {
       await client.get('/toUpperCase/Hello').expect(200, 'HELLO');
       expect(status.returnFromCache).to.be.false();
@@ -49,7 +49,7 @@ describe('global caching interceptor', () => {
     });
   });
 
-  context('caching invocation for route handler functions', () => {
+  describe('caching invocation for route handler functions', () => {
     it('invokes the handler function if not cached', async () => {
       await client.get('/toLowerCase/Hello').expect(200, 'hello');
       expect(status.returnFromCache).to.be.false();

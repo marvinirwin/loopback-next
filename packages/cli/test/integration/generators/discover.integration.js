@@ -65,10 +65,10 @@ describe('generator-loopback4:discover', tests);*/
 
 describe('lb4 discover integration', () => {
   describe('model discovery', () => {
-    beforeEach('creates dist/datasources', async () => {
+    beforeEach(async () => {
       await sandbox.mkdir('dist/datasources');
     });
-    beforeEach('reset sandbox', () => sandbox.reset());
+    beforeEach(() => sandbox.reset());
 
     it('generates all models without prompts using --all --dataSource', async function() {
       this.timeout(10000);

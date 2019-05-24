@@ -3,13 +3,12 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+import {Constructor, inject, Provider} from '@loopback/context';
 import {expect} from '@loopback/testlab';
-import {Constructor, Provider, inject} from '@loopback/context';
-
 import {Application, ControllerClass} from '../..';
 
 describe('Bootstrapping the application', () => {
-  context('with user-defined components', () => {
+  describe('with user-defined components', () => {
     it('binds all user-defined components to the application context', () => {
       class AuditComponent {}
       const app = new Application();

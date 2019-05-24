@@ -18,7 +18,7 @@ import {
 describe('repository class', () => {
   let ctx: Context;
 
-  before(givenCtx);
+  beforeAll(givenCtx);
 
   // tslint:disable-next-line:max-line-length
   it('supports referencing predefined repository by name via constructor', async () => {

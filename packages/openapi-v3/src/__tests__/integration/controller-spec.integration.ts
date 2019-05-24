@@ -208,7 +208,7 @@ describe('controller spec', () => {
     });
   });
 
-  context('reference models via spec', () => {
+  describe('reference models via spec', () => {
     it('allows operations to provide definitions of referenced models through #/components/schema', () => {
       class MyController {
         @get('/todos', {

@@ -25,7 +25,7 @@ const REQUIRED_ANY_OBJECT = {
 };
 
 describe('coerce object param - required', function() {
-  context('valid values', () => {
+  describe('valid values', () => {
     // Use JSON-encoded style, qs.stringify() omits empty objects
     test(REQUIRED_ANY_OBJECT, '{}', {});
     test(REQUIRED_ANY_OBJECT, {key: 'value'}, {key: 'value'});
@@ -35,7 +35,7 @@ describe('coerce object param - required', function() {
     test(REQUIRED_ANY_OBJECT, {key: 'text'}, {key: 'text'});
   });
 
-  context('empty values trigger ERROR_BAD_REQUEST', () => {
+  describe('empty values trigger ERROR_BAD_REQUEST', () => {
     test(
       REQUIRED_ANY_OBJECT,
       undefined, // the parameter is missing
@@ -55,7 +55,7 @@ describe('coerce object param - required', function() {
     );
   });
 
-  context('array values are not allowed', () => {
+  describe('array values are not allowed', () => {
     // JSON encoding
     testInvalidDataError('[]');
     testInvalidDataError('[1,2]');
@@ -81,7 +81,7 @@ describe('coerce object param - required', function() {
 });
 
 describe('coerce object param - optional', function() {
-  context('valid values', () => {
+  describe('valid values', () => {
     // Use JSON-encoded style, qs.stringify() omits empty objects
     test(OPTIONAL_ANY_OBJECT, '{}', {});
     test(OPTIONAL_ANY_OBJECT, {key: 'value'}, {key: 'value'});
@@ -90,7 +90,7 @@ describe('coerce object param - optional', function() {
     test(OPTIONAL_ANY_OBJECT, 'null', null);
   });
 
-  context('nested values are not coerced', () => {
+  describe('nested values are not coerced', () => {
     test(OPTIONAL_ANY_OBJECT, {key: 'undefined'}, {key: 'undefined'});
     test(OPTIONAL_ANY_OBJECT, {key: 'null'}, {key: 'null'});
     test(OPTIONAL_ANY_OBJECT, {key: 'text'}, {key: 'text'});
@@ -108,7 +108,7 @@ describe('coerce object param - optional', function() {
     );
   });
 
-  context('invalid values should trigger ERROR_BAD_REQUEST', () => {
+  describe('invalid values should trigger ERROR_BAD_REQUEST', () => {
     testInvalidDataError('text', {
       details: {
         syntaxError: 'Unexpected token e in JSON at position 1',
@@ -119,7 +119,7 @@ describe('coerce object param - optional', function() {
     testInvalidDataError('1');
   });
 
-  context('array values are not allowed', () => {
+  describe('array values are not allowed', () => {
     testInvalidDataError('[]');
     testInvalidDataError('[1,2]');
     testInvalidDataError([1, 2]);

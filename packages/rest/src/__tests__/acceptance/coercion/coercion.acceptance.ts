@@ -16,7 +16,7 @@ describe('Coercion', () => {
   let client: Client;
   let spy: sinon.SinonSpy;
 
-  before(givenAClient);
+  beforeAll(givenAClient);
 
   after(async () => {
     await app.stop();

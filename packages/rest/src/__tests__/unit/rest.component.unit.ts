@@ -29,7 +29,7 @@ describe('RestComponent', () => {
       let app: Application;
       let comp: Component;
 
-      before(async () => {
+      beforeAll(async () => {
         app = new Application();
         app.component(RestComponent);
 

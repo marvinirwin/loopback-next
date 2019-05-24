@@ -25,7 +25,7 @@ describe('API Explorer (acceptance)', () => {
     (app as unknown) = undefined;
   });
 
-  context('with default config', () => {
+  describe('with default config', () => {
     beforeEach(async () => {
       app = givenRestApplication();
       app.component(RestExplorerComponent);
@@ -60,7 +60,7 @@ describe('API Explorer (acceptance)', () => {
     });
   });
 
-  context('with custom RestServerConfig', () => {
+  describe('with custom RestServerConfig', () => {
     it('honours custom OpenAPI path', async () => {
       await givenAppWithCustomRestConfig({
         openApiSpec: {
@@ -85,7 +85,7 @@ describe('API Explorer (acceptance)', () => {
     }
   });
 
-  context('with custom RestExplorerConfig', () => {
+  describe('with custom RestExplorerConfig', () => {
     it('honors custom explorer path', async () => {
       await givenAppWithCustomExplorerConfig({
         path: '/openapi/ui',
@@ -114,7 +114,7 @@ describe('API Explorer (acceptance)', () => {
     }
   });
 
-  context('with custom basePath', () => {
+  describe('with custom basePath', () => {
     beforeEach(async () => {
       app = givenRestApplication();
       app.basePath('/api');

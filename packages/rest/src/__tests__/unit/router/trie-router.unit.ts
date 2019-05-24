@@ -20,7 +20,7 @@ class TestTrieRouter extends TrieRouter {
 
 describe('trie router', () => {
   let router: TestTrieRouter;
-  before(givenRouter);
+  beforeAll(givenRouter);
 
   it('adds routes to routesWithoutPathVars', () => {
     const staticRoutes = router.staticRoutes.map(getVerbAndPath);
@@ -115,7 +115,7 @@ describe('trie router', () => {
  */
 describe('trie router - overlapping paths with different var names', () => {
   let router: TestTrieRouter;
-  before(givenRouter);
+  beforeAll(givenRouter);
 
   it('finds route for GET /users/{id}', () => {
     const req = givenRequest({method: 'get', url: '/users/123'});
@@ -166,7 +166,7 @@ describe('trie router with options', () => {
   let router: TestTrieRouter;
 
   describe('strict: true', () => {
-    before(givenStrictRouter);
+    beforeAll(givenStrictRouter);
     it('finds route for GET /users/', () => {
       testStrictRouter('/users/');
     });
@@ -203,7 +203,7 @@ describe('trie router with options', () => {
   });
 
   describe('strict: false', () => {
-    before(givenNonStrictRouter);
+    beforeAll(givenNonStrictRouter);
     it('finds route for GET /users/', () => {
       testNonStrictRouter('/users/');
     });

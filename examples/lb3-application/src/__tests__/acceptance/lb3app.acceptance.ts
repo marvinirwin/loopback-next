@@ -15,7 +15,7 @@ describe('CoffeeShopApplication', () => {
   let app: CoffeeShopApplication;
   let client: Client;
 
-  before('setupApplication', async () => {
+  beforeAll(async () => {
     ({app, client} = await setupApplication());
   });
 
@@ -23,7 +23,7 @@ describe('CoffeeShopApplication', () => {
     if (app) await app.stop();
   });
 
-  context('basic REST calls for LoopBack 3 application', () => {
+  describe('basic REST calls for LoopBack 3 application', () => {
     it('creates and finds a CoffeeShop', async () => {
       const coffeeShop = givenCoffeeShop();
       const response = await client
@@ -53,11 +53,11 @@ describe('CoffeeShopApplication', () => {
     });
   });
 
-  context('LoopBack 3 authentication', () => {
+  describe('LoopBack 3 authentication', () => {
     // tslint:disable-next-line:no-any
     let User: any;
 
-    before(() => {
+    beforeAll(() => {
       User = lb3App.models.User;
     });
 
@@ -134,10 +134,10 @@ describe('CoffeeShopApplication', () => {
     });
   });
 
-  context('OpenAPI spec', () => {
+  describe('OpenAPI spec', () => {
     let apiSpec: OpenApiSpec;
 
-    before(async () => {
+    beforeAll(async () => {
       apiSpec = app.restServer.getApiSpec();
     });
 

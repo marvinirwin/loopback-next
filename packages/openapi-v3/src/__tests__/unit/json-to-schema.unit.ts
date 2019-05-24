@@ -3,11 +3,10 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {expect} from '@loopback/testlab';
-
 import {SchemaObject} from '@loopback/openapi-v3-types';
-import {jsonToSchemaObject, jsonOrBooleanToJSON} from '../..';
 import {JsonSchema} from '@loopback/repository-json-schema';
+import {expect} from '@loopback/testlab';
+import {jsonOrBooleanToJSON, jsonToSchemaObject} from '../..';
 
 describe('jsonToSchemaObject', () => {
   it('does nothing when given an empty object', () => {
@@ -67,7 +66,7 @@ describe('jsonToSchemaObject', () => {
     propertyConversionTest(propertyDef, expectedProperties);
   });
 
-  context('additionalProperties', () => {
+  describe('additionalProperties', () => {
     it('is converted properly when the type is JsonSchema', () => {
       const additionalDef: JsonSchema = {
         additionalProperties: typeDef,

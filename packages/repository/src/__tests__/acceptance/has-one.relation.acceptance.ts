@@ -25,9 +25,9 @@ describe('hasOne relation', () => {
   let addressRepo: AddressRepository;
   let existingCustomerId: number;
 
-  before(givenApplicationWithMemoryDB);
-  before(givenBoundCrudRepositoriesForCustomerAndAddress);
-  before(givenCustomerController);
+  beforeAll(givenApplicationWithMemoryDB);
+  beforeAll(givenBoundCrudRepositoriesForCustomerAndAddress);
+  beforeAll(givenCustomerController);
 
   beforeEach(async () => {
     await addressRepo.deleteAll();

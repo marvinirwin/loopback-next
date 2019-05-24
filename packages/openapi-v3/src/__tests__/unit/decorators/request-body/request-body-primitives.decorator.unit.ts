@@ -3,18 +3,18 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {
-  ControllerSpec,
-  post,
-  requestBody,
-  getControllerSpec,
-} from '../../../../';
 import {ContentObject, SchemaObject} from '@loopback/openapi-v3-types';
 import {Class} from '@loopback/repository';
 import {expect} from '@loopback/testlab';
+import {
+  ControllerSpec,
+  getControllerSpec,
+  post,
+  requestBody,
+} from '../../../../';
 
 describe('requestBody decorator', () => {
-  context('for a primitive type', () => {
+  describe('for a primitive type', () => {
     let actualSpec: ControllerSpec;
     let expectedContent: ContentObject;
 

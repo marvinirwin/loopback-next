@@ -10,7 +10,7 @@ import {metaToJsonProperty, stringTypeToWrapper} from '../..';
 describe('build-schema', () => {
   class CustomType {}
   describe('stringTypeToWrapper', () => {
-    context('when given primitive types in string', () => {
+    describe('when given primitive types in string', () => {
       it('returns String for "string"', () => {
         expect(stringTypeToWrapper('string')).to.eql(String);
       });

@@ -102,8 +102,8 @@ describe('My application', () => {
   app: MyApplication; // extends RestApplication
   client: Client;
 
-  before(givenRunningApplication);
-  before(() => {
+  beforeAll(givenRunningApplication);
+  beforeAll(() => {
     client = createRestAppClient(app);
   });
   after(() => app.stop());
