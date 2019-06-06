@@ -3,15 +3,17 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {UserProfile} from '@loopback/authentication';
-import {HttpErrors, Request} from '@loopback/rest';
-import {expect} from '@loopback/testlab';
-import {AuthenticateOptions} from 'passport';
-import {MockPassportStrategy} from './fixtures/mock-passport-strategy';
-import {StrategyAdapter} from '../..';
+// FOR REVIWERS: THIS UNIT TEST IS FOR `StrategyAdapter`
+
+import { UserProfile } from '@loopback/authentication';
+import { HttpErrors, Request } from '@loopback/rest';
+import { expect } from '@loopback/testlab';
+import { AuthenticateOptions } from 'passport';
+import { StrategyAdapter } from '../..';
+import { MockPassportStrategy } from './fixtures/mock-passport-strategy';
 
 describe('Strategy Adapter', () => {
-  const mockUser: UserProfile = {name: 'user-name', id: 'mock-id'};
+  const mockUser: UserProfile = { name: 'user-name', id: 'mock-id' };
 
   describe('authenticate()', () => {
     it('calls the authenticate method of the strategy', async () => {
@@ -45,7 +47,7 @@ describe('Strategy Adapter', () => {
       strategy.setMockUser(mockUser);
       const adapter = new StrategyAdapter(strategy, 'mock-strategy');
       const request = <Request>{};
-      request.headers = {testState: 'fail'};
+      request.headers = { testState: 'fail' };
       let error;
       try {
         await adapter.authenticate(request);
@@ -60,7 +62,7 @@ describe('Strategy Adapter', () => {
       strategy.setMockUser(mockUser);
       const adapter = new StrategyAdapter(strategy, 'mock-strategy');
       const request = <Request>{};
-      request.headers = {testState: 'error'};
+      request.headers = { testState: 'error' };
       let error;
       try {
         await adapter.authenticate(request);

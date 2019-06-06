@@ -3,37 +3,21 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {inject} from '@loopback/context';
-import {addExtension, Application, Provider} from '@loopback/core';
-import {anOpenApiSpec} from '@loopback/openapi-spec-builder';
-import {api, get} from '@loopback/openapi-v3';
-import {
-  FindRoute,
-  InvokeMethod,
-  ParseParams,
-  Reject,
-  RequestContext,
-  RestBindings,
-  RestComponent,
-  RestServer,
-  Send,
-  SequenceHandler,
-} from '@loopback/rest';
-import {Client, createClientForHandler} from '@loopback/testlab';
-import {BasicStrategy, BasicVerifyFunction} from 'passport-http';
-import {
-  authenticate,
-  AuthenticationStrategy,
-  AuthenticateFn,
-  AuthenticationBindings,
-  AuthenticationComponent,
-  UserProfile,
-} from '@loopback/authentication';
-import {StrategyAdapter} from '../../';
+// FOR REVIWERS: THIS ACCEPTANCE TEST IS FOR `PassportAdapter`
+
+import { authenticate, AuthenticateFn, AuthenticationBindings, AuthenticationComponent, AuthenticationStrategy, UserProfile } from '@loopback/authentication';
+import { inject } from '@loopback/context';
+import { addExtension, Application, Provider } from '@loopback/core';
+import { anOpenApiSpec } from '@loopback/openapi-spec-builder';
+import { api, get } from '@loopback/openapi-v3';
+import { FindRoute, InvokeMethod, ParseParams, Reject, RequestContext, RestBindings, RestComponent, RestServer, Send, SequenceHandler } from '@loopback/rest';
+import { Client, createClientForHandler } from '@loopback/testlab';
+import { BasicStrategy, BasicVerifyFunction } from 'passport-http';
+import { PassportAdapter } from '../../';
 const SequenceActions = RestBindings.SequenceActions;
 const AUTH_STRATEGY_NAME = 'basic';
 
-describe('Basic Authentication', () => {
+describe('Basic Authentication - passport', () => {
   let app: Application;
   let server: RestServer;
   let users: UserRepository;
@@ -67,42 +51,45 @@ describe('Basic Authentication', () => {
     class InfoController {
       @get('/status')
       status() {
-        return {running: true};
+        return { running: true };
       }
     }
 
     app.controller(InfoController);
     await whenIMakeRequestTo(server)
       .get('/status')
-      .expect(200, {running: true});
+      .expect(200, { running: true });
   });
 
   function givenUserRepository() {
     users = new UserRepository({
-      joe: {profile: {id: 'joe'}, password: '12345'},
-      Simpson: {profile: {id: 'sim123'}, password: 'alpha'},
-      Flinstone: {profile: {id: 'Flint'}, password: 'beta'},
-      George: {profile: {id: 'Curious'}, password: 'gamma'},
+      joe: { profile: { id: 'joe' }, password: '12345' },
+      Simpson: { profile: { id: 'sim123' }, password: 'alpha' },
+      Flinstone: { profile: { id: 'Flint' }, password: 'beta' },
+      George: { profile: { id: 'Curious' }, password: 'gamma' },
     });
   }
 
-  // Since it has to be user's job to provide the `verify` function and
-  // instantiate the passport strategy, we cannot add the imported `BasicStrategy`
-  // class as extension directly, we need to wrap it as a strategy provider,
-  // then add the provider class as the extension.
-  // See Line 89 in the function `givenAServer`
   class PassportBasicAuthProvider implements Provider<AuthenticationStrategy> {
     value(): AuthenticationStrategy {
       const basicStrategy = this.configuredBasicStrategy(verify);
-      return this.convertToAuthStrategy(basicStrategy);
+      // Ideally the passport adapter should accept a configured
+      // passport instance like:
+
+      // const passport = new Passport();
+      // passport.use(basicStrategy);
+      // return new PassportAdapter(passport);
+
+      // The workaround still takes a strategy because the types exported from
+      // `passport` module gives error when using it as a type:
+      // afunction(passport: Passport){}
+      // the code above has type error. I've tried all the possible types exported
+      // from `passport` module and none of them work.
+      return new PassportAdapter(basicStrategy, 'basic');
     }
 
     configuredBasicStrategy(verifyFn: BasicVerifyFunction): BasicStrategy {
       return new BasicStrategy(verifyFn);
-    }
-
-    convertToAuthStrategy(basic: BasicStrategy): AuthenticationStrategy {
-      return new StrategyAdapter(basic, AUTH_STRATEGY_NAME);
     }
   }
 
@@ -147,7 +134,7 @@ describe('Basic Authentication', () => {
     class MyController {
       constructor(
         @inject(AuthenticationBindings.CURRENT_USER) private user: UserProfile,
-      ) {}
+      ) { }
 
       @authenticate(AUTH_STRATEGY_NAME)
       async whoAmI(): Promise<string> {
@@ -168,11 +155,11 @@ describe('Basic Authentication', () => {
         @inject(SequenceActions.REJECT) protected reject: Reject,
         @inject(AuthenticationBindings.AUTH_ACTION)
         protected authenticateRequest: AuthenticateFn,
-      ) {}
+      ) { }
 
       async handle(context: RequestContext) {
         try {
-          const {request, response} = context;
+          const { request, response } = context;
           const route = this.findRoute(request);
 
           // Authenticate
@@ -199,8 +186,8 @@ describe('Basic Authentication', () => {
 
 class UserRepository {
   constructor(
-    readonly list: {[key: string]: {profile: UserProfile; password: string}},
-  ) {}
+    readonly list: { [key: string]: { profile: UserProfile; password: string } },
+  ) { }
   find(username: string, password: string, cb: Function): void {
     const userList = this.list;
     function search(key: string) {

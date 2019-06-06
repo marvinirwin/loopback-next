@@ -6,9 +6,9 @@
 // Should it be imported from 'express'?
 // The `Request` type from 'express' is not compatible
 // with the one from `@loopback/rest` now.
+import {UserProfile} from '@loopback/authentication';
 import {Request} from '@loopback/rest';
 import {AuthenticateOptions, Strategy} from 'passport';
-import {UserProfile} from '@loopback/authentication';
 
 /**
  * Test fixture for a mock asynchronous passport-strategy
@@ -16,6 +16,7 @@ import {UserProfile} from '@loopback/authentication';
 export class MockPassportStrategy extends Strategy {
   // user to return for successful authentication
   private mockUser: UserProfile;
+  public name: string = 'mock-strategy';
 
   setMockUser(userObj: UserProfile) {
     this.mockUser = userObj;

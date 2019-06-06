@@ -14,7 +14,7 @@ const passportRequestMixin = require('passport/lib/http/request');
  *   1. provides express dependencies to the passport strategies
  *   2. provides shimming of requests for passport authentication
  *   3. provides lifecycle similar to express to the passport-strategy
- *   3. provides state methods to the strategy instance
+ *   4. provides state methods to the strategy instance
  * see: https://github.com/jaredhanson/passport
  */
 export class StrategyAdapter implements AuthenticationStrategy {
