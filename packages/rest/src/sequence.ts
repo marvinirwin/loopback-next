@@ -6,9 +6,9 @@
 import {
   compareBindingsByTag,
   filterByTag,
-  Handler,
+  GenericInterceptor,
+  GenericInterceptorChain,
   inject,
-  HandlerChain,
 } from '@loopback/context';
 import {Response} from 'express';
 import {RestBindings, RestTags} from './keys';
@@ -103,11 +103,11 @@ export class DefaultSequence implements SequenceHandler {
   async handle(context: RequestContext): Promise<void> {
     const restActions: RestAction[] = await this.getActions(context);
 
-    const actionHandlers: Handler<RequestContext>[] = restActions.map(
-      action => (ctx, next) => action.action(ctx, next),
-    );
-    const actionChain = new HandlerChain(context, actionHandlers);
-    await actionChain.invokeHandlers();
+    const actionHandlers: GenericInterceptor<
+      RequestContext
+    >[] = restActions.map(action => (ctx, next) => action.action(ctx, next));
+    const actionChain = new GenericInterceptorChain(context, actionHandlers);
+    await actionChain.invokeInterceptors();
   }
 
   protected async getActions(context: RequestContext) {

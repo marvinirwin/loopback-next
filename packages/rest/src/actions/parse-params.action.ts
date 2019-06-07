@@ -12,6 +12,8 @@ import {
   HttpContext,
   ParseParams,
   Request,
+  RequestBodyParserOptions,
+  RequestBodyValidationOptions,
   RestAction,
   restAction,
 } from '../types';
@@ -28,19 +30,30 @@ export class ParseParamsAction implements RestAction {
     private getRoute: Getter<ResolvedRoute>,
     @inject(RestBindings.REQUEST_BODY_PARSER)
     private requestBodyParser: RequestBodyParser,
+    @inject(RestBindings.REQUEST_BODY_PARSER_OPTIONS, {optional: true})
+    private options: RequestBodyParserOptions = {},
   ) {}
 
   async action(ctx: HttpContext, next: Next) {
-    const args = await this.parseParams(ctx.request, await this.getRoute());
+    const args = await this.parseParams(
+      ctx.request,
+      await this.getRoute(),
+      this.options.validation,
+    );
     ctx.bind(RestBindings.OPERATION_ARGS).to(args);
     return await next();
   }
 
-  async parseParams(request: Request, resolvedRoute: ResolvedRoute) {
+  async parseParams(
+    request: Request,
+    resolvedRoute: ResolvedRoute,
+    options?: RequestBodyValidationOptions,
+  ) {
     return await parseOperationArgs(
       request,
       resolvedRoute,
       this.requestBodyParser,
+      options,
     );
   }
 
