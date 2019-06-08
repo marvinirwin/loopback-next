@@ -26,7 +26,7 @@ export class FindRouteAction implements RestAction {
     @inject(RestBindings.HANDLER) protected httpHandler: HttpHandler,
   ) {}
 
-  action(ctx: HttpContext, next: Next) {
+  run(ctx: HttpContext, next: Next) {
     const found = this.findRoute(ctx.request);
     // Bind resolved route
     ctx.bind(RestBindings.RESOLVED_ROUTE).to(found);

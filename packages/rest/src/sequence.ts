@@ -105,7 +105,7 @@ export class DefaultSequence implements SequenceHandler {
 
     const actionHandlers: GenericInterceptor<
       RequestContext
-    >[] = restActions.map(action => (ctx, next) => action.action(ctx, next));
+    >[] = restActions.map(action => (ctx, next) => action.run(ctx, next));
     const actionChain = new GenericInterceptorChain(context, actionHandlers);
     await actionChain.invokeInterceptors();
   }

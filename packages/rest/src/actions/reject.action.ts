@@ -31,7 +31,7 @@ export class RejectAction implements RestAction {
     protected errorWriterOptions?: ErrorWriterOptions,
   ) {}
 
-  async action(ctx: HttpContext, next: Next) {
+  async run(ctx: HttpContext, next: Next) {
     try {
       return await next();
     } catch (error) {

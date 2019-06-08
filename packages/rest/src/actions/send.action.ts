@@ -29,7 +29,7 @@ export class SendAction implements RestAction {
     private getReturnValue: Getter<OperationRetval>,
   ) {}
 
-  async action(ctx: HttpContext, next: Next) {
+  async run(ctx: HttpContext, next: Next) {
     const result = await next();
     const returnVal = await this.getReturnValue();
     this.send(ctx.response, returnVal || result);

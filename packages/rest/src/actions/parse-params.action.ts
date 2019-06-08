@@ -34,7 +34,7 @@ export class ParseParamsAction implements RestAction {
     private options: RequestBodyParserOptions = {},
   ) {}
 
-  async action(ctx: HttpContext, next: Next) {
+  async run(ctx: HttpContext, next: Next) {
     const args = await this.parseParams(
       ctx.request,
       await this.getRoute(),

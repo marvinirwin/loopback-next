@@ -22,7 +22,7 @@ describe('MiddlewareAction', () => {
     };
     const middlewareAction = new MiddlewareAction(handler);
     let nextCalled = false;
-    await middlewareAction.action(reqCtx, () => {
+    await middlewareAction.run(reqCtx, () => {
       nextCalled = true;
     });
     expect(reqCtx.response.get('mock-header')).to.eql('mock-value');
@@ -38,7 +38,7 @@ describe('MiddlewareAction', () => {
     };
     const middlewareAction = new MiddlewareAction(handler);
     let nextCalled = false;
-    await middlewareAction.action(reqCtx, () => {
+    await middlewareAction.run(reqCtx, () => {
       nextCalled = true;
     });
     expect(reqCtx.response.get('mock-header')).to.eql('mock-value');
@@ -52,7 +52,7 @@ describe('MiddlewareAction', () => {
     };
     const middlewareAction = new MiddlewareAction(handlerWithoutNext);
     let nextCalled = false;
-    await middlewareAction.action(reqCtx, () => {
+    await middlewareAction.run(reqCtx, () => {
       nextCalled = true;
     });
     expect(reqCtx.response.get('mock-header')).to.eql('mock-value');
@@ -66,7 +66,7 @@ describe('MiddlewareAction', () => {
     const middlewareAction = new MiddlewareAction(handlerThrowingError);
     let nextCalled = false;
     await expect(
-      middlewareAction.action(reqCtx, () => {
+      middlewareAction.run(reqCtx, () => {
         nextCalled = true;
       }),
     ).to.be.rejectedWith(/error from handler/);
@@ -80,7 +80,7 @@ describe('MiddlewareAction', () => {
     const middlewareAction = new MiddlewareAction(handlerThrowingError);
     let nextCalled = false;
     await expect(
-      middlewareAction.action(reqCtx, () => {
+      middlewareAction.run(reqCtx, () => {
         nextCalled = true;
       }),
     ).to.be.rejectedWith(/error from handler/);

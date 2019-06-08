@@ -25,7 +25,7 @@ export class InvokeMethodAction implements RestAction {
     protected getArgs: Getter<OperationArgs>,
   ) {}
 
-  async action(ctx: HttpContext, next: Next) {
+  async run(ctx: HttpContext, next: Next) {
     const result = await this.invokeMethod(
       await this.getRoute(),
       await this.getArgs(),

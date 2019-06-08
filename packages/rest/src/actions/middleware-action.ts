@@ -19,7 +19,7 @@ import {HttpContext, RestAction} from '../types';
 export class MiddlewareAction implements RestAction {
   constructor(private requestHandler: RequestHandler) {}
 
-  async action(ctx: HttpContext, next: Next) {
+  async run(ctx: HttpContext, next: Next) {
     return new Promise<InvocationResult>((resolve, reject) => {
       try {
         if (this.requestHandler.length < 3) {

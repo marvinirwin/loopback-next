@@ -165,10 +165,15 @@ export type OperationRetval = InvocationResult;
 export type HttpContext = HandlerContext & Context;
 
 /**
+ * Interceptor for REST operations
+ */
+export type RestInterceptor = GenericInterceptor<HandlerContext & Context>;
+
+/**
  * Action for REST request/response processing sequence
  */
 export interface RestAction {
-  action: GenericInterceptor<HandlerContext & Context>;
+  run: RestInterceptor;
 }
 
 /**
