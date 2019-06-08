@@ -9,11 +9,11 @@ import {
   HttpContext,
   OperationRetval,
   Response,
-  RestAction,
   restAction,
   Send,
 } from '../types';
 import {writeResultToResponse} from '../writer';
+import {BaseRestAction} from './base-action';
 
 /**
  * Provides the function that populates the response object with
@@ -23,11 +23,13 @@ import {writeResultToResponse} from '../writer';
  * response with operation results.
  */
 @restAction('send')
-export class SendAction implements RestAction {
+export class SendAction extends BaseRestAction {
   constructor(
     @inject.getter(RestBindings.OPERATION_RESULT, {optional: true})
     private getReturnValue: Getter<OperationRetval>,
-  ) {}
+  ) {
+    super();
+  }
 
   async run(ctx: HttpContext, next: Next) {
     const result = await next();

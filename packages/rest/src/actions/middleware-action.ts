@@ -11,13 +11,16 @@ import {
   Provider,
 } from '@loopback/context';
 import {RequestHandler} from 'express';
-import {HttpContext, RestAction} from '../types';
+import {HttpContext} from '../types';
+import {BaseRestAction} from './base-action';
 
 /**
  * Wrap an Express middleware handler as RestAction
  */
-export class MiddlewareAction implements RestAction {
-  constructor(private requestHandler: RequestHandler) {}
+export class MiddlewareAction extends BaseRestAction {
+  constructor(private requestHandler: RequestHandler) {
+    super();
+  }
 
   async run(ctx: HttpContext, next: Next) {
     return new Promise<InvocationResult>((resolve, reject) => {

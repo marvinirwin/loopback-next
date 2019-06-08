@@ -13,9 +13,10 @@ import {
   RestAction,
   restAction,
 } from '../types';
+import { BaseRestAction } from './base-action';
 
 @restAction('invoke')
-export class InvokeMethodAction implements RestAction {
+export class InvokeMethodAction extends BaseRestAction {
   constructor(
     @inject.context()
     private context: Context,
@@ -23,7 +24,9 @@ export class InvokeMethodAction implements RestAction {
     protected getRoute: Getter<RouteEntry>,
     @inject.getter(RestBindings.OPERATION_ARGS)
     protected getArgs: Getter<OperationArgs>,
-  ) {}
+  ) {
+    super();
+  }
 
   async run(ctx: HttpContext, next: Next) {
     const result = await this.invokeMethod(

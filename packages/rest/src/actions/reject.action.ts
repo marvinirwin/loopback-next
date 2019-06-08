@@ -12,9 +12,9 @@ import {
   HttpContext,
   LogError,
   Reject,
-  RestAction,
   restAction,
 } from '../types';
+import {BaseRestAction} from './base-action';
 
 // TODO(bajtos) Make this mapping configurable at RestServer level,
 // allow apps and extensions to contribute additional mappings.
@@ -23,13 +23,15 @@ const codeToStatusCodeMap: {[key: string]: number} = {
 };
 
 @restAction('reject')
-export class RejectAction implements RestAction {
+export class RejectAction extends BaseRestAction {
   constructor(
     @inject(RestBindings.SequenceActions.LOG_ERROR)
     protected logError: LogError,
     @inject(RestBindings.ERROR_WRITER_OPTIONS, {optional: true})
     protected errorWriterOptions?: ErrorWriterOptions,
-  ) {}
+  ) {
+    super();
+  }
 
   async run(ctx: HttpContext, next: Next) {
     try {

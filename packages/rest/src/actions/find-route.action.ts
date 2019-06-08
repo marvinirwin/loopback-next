@@ -6,25 +6,22 @@
 import {Context, inject, Next} from '@loopback/context';
 import {HttpHandler} from '../http-handler';
 import {RestBindings} from '../keys';
-import {
-  FindRoute,
-  HttpContext,
-  Request,
-  RestAction,
-  restAction,
-} from '../types';
+import {FindRoute, HttpContext, Request, restAction} from '../types';
+import {BaseRestAction} from './base-action';
 
 /**
  * Find a route matching the incoming REST API request.
  * Throw an error when no route was found.
  */
 @restAction('route')
-export class FindRouteAction implements RestAction {
+export class FindRouteAction extends BaseRestAction {
   constructor(
     @inject.context()
     private context: Context,
     @inject(RestBindings.HANDLER) protected httpHandler: HttpHandler,
-  ) {}
+  ) {
+    super();
+  }
 
   run(ctx: HttpContext, next: Next) {
     const found = this.findRoute(ctx.request);
