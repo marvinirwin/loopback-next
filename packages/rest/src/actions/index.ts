@@ -5,6 +5,7 @@
 
 export * from './find-route.action';
 export * from './invoke-method.action';
+export * from './middleware-action';
 export * from './parse-params.action';
 export * from './reject.action';
 export * from './send.action';
