@@ -8,26 +8,10 @@ import {BindingFilter} from './binding-filter';
 import {BindingAddress} from './binding-key';
 import {BindingComparator} from './binding-sorter';
 import {Context} from './context';
+import {InvocationResult, Next} from './invocation';
 import {transformValueOrPromise, ValueOrPromise} from './value-promise';
 
 const debug = debugFactory('loopback:context:interceptor-chain');
-
-/**
- * Return value for a method invocation
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type InvocationResult = any;
-
-/**
- * Array of arguments for a method invocation
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type InvocationArgs = any[];
-
-/**
- * `next` function
- */
-export type Next = () => ValueOrPromise<InvocationResult>;
 
 /**
  * An interceptor function to be invoked in a chain for the given context.
