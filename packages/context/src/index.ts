@@ -24,3 +24,4 @@ export * from './provider';
 export * from './resolution-session';
 export * from './resolver';
 export * from './value-promise';
+export * from './invocation';
