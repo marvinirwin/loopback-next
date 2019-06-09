@@ -112,6 +112,20 @@ export class InvocationContext extends Context {
 }
 
 /**
+ * Options to control invocations
+ */
+export type InvocationOptions = {
+  /**
+   * Skip dependency injection on method parameters
+   */
+  skipParameterInjection?: boolean;
+  /**
+   * Skip invocation of interceptors
+   */
+  skipInterceptors?: boolean;
+};
+
+/**
  * Invoke a method using dependency injection. Interceptors are invoked as part
  * of the invocation.
  * @param target - Target of the method, it will be the class for a static
@@ -126,14 +140,22 @@ export function invokeMethod(
   method: string,
   ctx: Context,
   nonInjectedArgs: InvocationArgs = [],
+  options: InvocationOptions = {},
 ): ValueOrPromise<InvocationResult> {
-  return invokeMethodWithInvoker(
-    invokeMethodWithInterceptors,
-    ctx,
-    target,
-    method,
-    nonInjectedArgs,
-  );
+  if (options.skipParameterInjection) {
+    if (options.skipInterceptors) {
+      // Invoke the target method directly without injection or interception
+      return invokeTargetMethod(ctx, target, method, nonInjectedArgs);
+    } else {
+      // Invoke the target method with interception but no injection
+      return invokeMethodWithInterceptors(ctx, target, method, nonInjectedArgs);
+    }
+  }
+  // Parameter injection is required
+  const invoker = options.skipInterceptors
+    ? invokeTargetMethod
+    : invokeMethodWithInterceptors;
+  return invokeMethodWithInvoker(invoker, ctx, target, method, nonInjectedArgs);
 }
 
 /**
