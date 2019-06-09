@@ -16,7 +16,7 @@ import {BaseRestAction} from './base-action';
 @restAction('route')
 export class FindRouteAction extends BaseRestAction {
   constructor(
-    @inject.context()
+    @inject(RestBindings.Http.CONTEXT)
     private context: Context,
     @inject(RestBindings.HANDLER) protected httpHandler: HttpHandler,
   ) {

@@ -6,19 +6,13 @@
 import {Context, Getter, inject, Next} from '@loopback/context';
 import {RestBindings} from '../keys';
 import {RouteEntry} from '../router';
-import {
-  HttpContext,
-  InvokeMethod,
-  OperationArgs,
-  RestAction,
-  restAction,
-} from '../types';
-import { BaseRestAction } from './base-action';
+import {HttpContext, InvokeMethod, OperationArgs, restAction} from '../types';
+import {BaseRestAction} from './base-action';
 
 @restAction('invoke')
 export class InvokeMethodAction extends BaseRestAction {
   constructor(
-    @inject.context()
+    @inject(RestBindings.Http.CONTEXT)
     private context: Context,
     @inject.getter(RestBindings.RESOLVED_ROUTE)
     protected getRoute: Getter<RouteEntry>,
