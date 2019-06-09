@@ -3,7 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {Context, Getter, inject, Next} from '@loopback/context';
+import {Context, inject} from '@loopback/context';
 import {RestBindings} from '../keys';
 import {RouteEntry} from '../router';
 import {HttpContext, InvokeMethod, OperationArgs, restAction} from '../types';
@@ -14,24 +14,20 @@ export class InvokeMethodAction extends BaseRestAction {
   constructor(
     @inject(RestBindings.Http.CONTEXT)
     private context: Context,
-    @inject.getter(RestBindings.RESOLVED_ROUTE)
-    protected getRoute: Getter<RouteEntry>,
-    @inject.getter(RestBindings.OPERATION_ARGS)
-    protected getArgs: Getter<OperationArgs>,
   ) {
     super();
   }
 
-  async run(ctx: HttpContext, next: Next) {
-    const result = await this.invokeMethod(
-      await this.getRoute(),
-      await this.getArgs(),
-    );
+  async run(ctx: HttpContext) {
+    const result = await this.delegate(ctx, 'invokeMethod');
     ctx.bind(RestBindings.OPERATION_RESULT).to(result);
     return result;
   }
 
-  async invokeMethod(route: RouteEntry, args: OperationArgs) {
+  async invokeMethod(
+    @inject(RestBindings.RESOLVED_ROUTE) route: RouteEntry,
+    @inject(RestBindings.OPERATION_ARGS) args: OperationArgs,
+  ) {
     return await route.invokeHandler(this.context, args);
   }
 

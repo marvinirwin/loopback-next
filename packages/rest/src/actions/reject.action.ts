@@ -37,11 +37,14 @@ export class RejectAction extends BaseRestAction {
     try {
       return await next();
     } catch (error) {
-      this.reject(ctx, error);
+      await this.delegate(ctx, 'reject', [error]);
     }
   }
 
-  reject({request, response}: HandlerContext, error: Error) {
+  reject(
+    @inject(RestBindings.Http.CONTEXT) {request, response}: HandlerContext,
+    error: Error,
+  ) {
     const err = error as HttpError;
     if (!err.status && !err.statusCode && err.code) {
       const customStatus = codeToStatusCodeMap[err.code];

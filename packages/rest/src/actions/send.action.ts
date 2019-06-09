@@ -3,7 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {Getter, inject, Next} from '@loopback/context';
+import {inject, Next} from '@loopback/context';
 import {RestBindings} from '../keys';
 import {
   HttpContext,
@@ -24,20 +24,20 @@ import {BaseRestAction} from './base-action';
  */
 @restAction('send')
 export class SendAction extends BaseRestAction {
-  constructor(
-    @inject.getter(RestBindings.OPERATION_RESULT, {optional: true})
-    private getReturnValue: Getter<OperationRetval>,
-  ) {
+  constructor() {
     super();
   }
 
   async run(ctx: HttpContext, next: Next) {
-    const result = await next();
-    const returnVal = await this.getReturnValue();
-    this.send(ctx.response, returnVal || result);
+    await next();
+    return this.delegate(ctx, 'send');
   }
 
-  send(response: Response, result: OperationRetval) {
+  send(
+    @inject(RestBindings.Http.RESPONSE) response: Response,
+    @inject(RestBindings.OPERATION_RESULT, {optional: true})
+    result: OperationRetval,
+  ) {
     writeResultToResponse(response, result);
   }
 

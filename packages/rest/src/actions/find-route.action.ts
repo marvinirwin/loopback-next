@@ -16,21 +16,20 @@ import {BaseRestAction} from './base-action';
 @restAction('route')
 export class FindRouteAction extends BaseRestAction {
   constructor(
-    @inject(RestBindings.Http.CONTEXT)
-    private context: Context,
+    @inject(RestBindings.Http.CONTEXT) protected context: Context,
     @inject(RestBindings.HANDLER) protected httpHandler: HttpHandler,
   ) {
     super();
   }
 
-  run(ctx: HttpContext, next: Next) {
-    const found = this.findRoute(ctx.request);
+  async run(ctx: HttpContext, next: Next) {
+    const found = await this.delegate(ctx, 'findRoute');
     // Bind resolved route
     ctx.bind(RestBindings.RESOLVED_ROUTE).to(found);
-    return next();
+    return await next();
   }
 
-  findRoute(request: Request) {
+  findRoute(@inject(RestBindings.Http.REQUEST) request: Request) {
     const found = this.httpHandler.findRoute(request);
     found.updateBindings(this.context);
     return found;

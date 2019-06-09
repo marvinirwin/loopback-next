@@ -16,7 +16,6 @@ import {
   Provider,
   ValueOrPromise,
 } from '../..';
-import {invokeMethodWithoutInterceptors} from '../../invocation';
 
 describe('Interceptor', () => {
   let ctx: Context;

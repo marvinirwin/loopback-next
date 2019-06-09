@@ -31,6 +31,7 @@ export class MiddlewareAction extends BaseRestAction {
           resolve(next());
           return;
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.requestHandler(ctx.request, ctx.response, (err?: any) => {
           if (err) reject(err);
           else resolve(next());

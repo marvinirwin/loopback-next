@@ -110,8 +110,6 @@ export interface RequestBodyValidationOptions extends ajv.Options {
   >;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /**
  * Options for request body parsing
  * See https://github.com/expressjs/body-parser/#options
