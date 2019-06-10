@@ -63,9 +63,7 @@ import {StrategyAdapter} from `@loopback/passport-adapter`;
 import {AuthenticationStrategy} from '@loopback/authentication';
 
 class PassportBasicAuthProvider implements Provider<AuthenticationStrategy> {
-  constructor(
-    @inject(VERIFY) verifyFn: BasicVerifyFunction
-  )
+  constructor(@inject(VERIFY) verifyFn: BasicVerifyFunction);
   value(): AuthenticationStrategy {
     const basicStrategy = this.configuredBasicStrategy(verify);
     return this.convertToAuthStrategy(basicStrategy);

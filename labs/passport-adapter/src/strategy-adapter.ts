@@ -3,9 +3,9 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import { AuthenticationStrategy, UserProfile } from '@loopback/authentication';
-import { HttpErrors, Request } from '@loopback/rest';
-import { Strategy } from 'passport';
+import {AuthenticationStrategy, UserProfile} from '@loopback/authentication';
+import {HttpErrors, Request} from '@loopback/rest';
+import {Strategy} from 'passport';
 
 const passportRequestMixin = require('passport/lib/http/request');
 
@@ -47,17 +47,17 @@ export class StrategyAdapter implements AuthenticationStrategy {
       const strategy = Object.create(this.strategy);
 
       // add success state handler to strategy instance
-      strategy.success = function (user: UserProfile) {
+      strategy.success = function(user: UserProfile) {
         resolve(user);
       };
 
       // add failure state handler to strategy instance
-      strategy.fail = function (challenge: string) {
+      strategy.fail = function(challenge: string) {
         reject(new HttpErrors.Unauthorized(challenge));
       };
 
       // add error state handler to strategy instance
-      strategy.error = function (error: string) {
+      strategy.error = function(error: string) {
         reject(new HttpErrors.InternalServerError(error));
       };
 
