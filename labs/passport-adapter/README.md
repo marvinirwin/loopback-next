@@ -63,6 +63,9 @@ import {StrategyAdapter} from `@loopback/passport-adapter`;
 import {AuthenticationStrategy} from '@loopback/authentication';
 
 class PassportBasicAuthProvider implements Provider<AuthenticationStrategy> {
+  constructor(
+    @inject(VERIFY) verifyFn: BasicVerifyFunction
+  )
   value(): AuthenticationStrategy {
     const basicStrategy = this.configuredBasicStrategy(verify);
     return this.convertToAuthStrategy(basicStrategy);
@@ -109,82 +112,6 @@ addExtension(
 ```
 
 3. Decorate your endpoint
-
-To authenticate your request with the basic strategy, decorate your controller
-function like:
-
-```ts
-class MyController {
-  constructor(
-    @inject(AuthenticationBindings.CURRENT_USER) private user: UserProfile,
-  ) {}
-
-  // Define your strategy name as a constant so that
-  // it is consistent with the name you provide in the adapter
-  @authenticate(AUTH_STRATEGY_NAME)
-  async whoAmI(): Promise<string> {
-    return this.user.id;
-  }
-}
-```
-
-# Passport Adapter
-
-This adapter is different than the "Passport strategy adapter" described above in the way that it wraps the **passport middleware** itself instead of a passport strategy.
-
-`PassportAdapter` has an `authenticate` function, which creates a passport instance, uses the injected strategy and invokes `passport.authenticate()` to perform the authentication.
-
-## Usage
-
-1. Create a provider for the strategy
-
-It returns a configured `BasicStrategy` that's wrapped with the `PassportAdapter` class.
-
-```ts
-  class PassportBasicAuthProvider implements Provider<AuthenticationStrategy> {
-    value(): AuthenticationStrategy {
-      const basicStrategy = this.configuredBasicStrategy(verify);
-      cosnt passport = new Passport();
-      passport.use(basicStrategy);
-      return new PassportAdapter(passport);
-    }
-
-    configuredBasicStrategy(verifyFn: BasicVerifyFunction): BasicStrategy {
-      return new BasicStrategy(verifyFn);
-    }
-  }
-```
-
-2. Register the strategy provider
-
-*Exactly same as the strategy adapter*
-
-Register the strategy provider in your LoopBack application so that the
-authentication system can look for your strategy by name and invoke it:
-
-```ts
-// In the main file
-
-import {addExtension} from '@loopback/core';
-import {MyApplication} from '<path_to_your_app>';
-import {AuthenticationBindings} from '@loopback/authentication';
-
-const app = new MyApplication();
-
-addExtension(
-  app,
-  AuthenticationBindings.AUTHENTICATION_STRATEGY_EXTENSION_POINT_NAME,
-  PassportBasicAuthProvider,
-  {
-    namespace:
-      AuthenticationBindings.AUTHENTICATION_STRATEGY_EXTENSION_POINT_NAME,
-  },
-);
-```
-
-3. Decorate your endpoint
-
-*Exactly same as the strategy adapter*
 
 To authenticate your request with the basic strategy, decorate your controller
 function like:
