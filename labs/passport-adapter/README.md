@@ -28,15 +28,70 @@ the one that LoopBack 4 authentication system wants.
 
 ## Usage
 
-1. Create a provider for the strategy
+### Simply Usage
+
+1. Created an instance of the passport strategy
 
 Take the basic strategy exported from
 [`passport-http`](https://github.com/jaredhanson/passport-http) as an example,
-create a provider that returns a converted basic strategy:
+first create an instance of the basic strategy with your `verify` function.
+
+```ts
+function verify(username: string, password: string, cb: Function) {
+  users.find(username, password, cb);
+}
+const basicStrategy = new BasicStrategy(verify);
+```
+
+It's the similar configuration as you do when adding a strategy to a `passport`
+by calling `passport.use()`.
+
+But don't provide any passport specific options since we don't support the
+session manager.
+
+2. Apply the adapter to the strategy
+
+```ts
+const AUTH_STRATEGY_NAME = 'basic';
+
+const basicAuthStrategy = new StrategyAdapter(
+  // The configured basic strategy instance
+  basicStrategy,
+  // Give the strategy a name
+  // You'd better define your strategy name as a constant, like
+  // `const AUTH_STRATEGY_NAME = 'basic'`.
+  // So that you will decorate the APIs later with the same name.
+  AUTH_STRATEGY_NAME,
+);
+```
+
+3. Register(bind) the strategy to app
+
+```ts
+import {Application, CoreTags} from '@loopback/core';
+import {AuthenticationBindings} from '@loopback/authentication';
+
+app
+  .bind('authentication.strategies.basicAuthStrategy')
+  .to(basicAuthStrategy)
+  .tag({
+    [CoreTags.EXTENSION_FOR]:
+      AuthenticationBindings.AUTHENTICATION_STRATEGY_EXTENSION_POINT_NAME,
+  });
+```
+
+### With Provider
+
+If you need to inject stuff (e.g. the verify function) when configure the
+strategy, you may want to provide your strategy as a provider.
 
 _Note: If you are not familiar with LoopBack provider, check the documentations
 in
 [Extending LoopBack 4](https://loopback.io/doc/en/lb4/Extending-LoopBack-4.html)_
+
+1. Create a provider for the strategy
+
+Use `passport-http` as the example again:
 
 ```ts
 class PassportBasicAuthProvider implements Provider<AuthenticationStrategy> {

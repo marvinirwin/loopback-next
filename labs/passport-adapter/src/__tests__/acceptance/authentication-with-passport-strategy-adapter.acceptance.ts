@@ -3,18 +3,15 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-// FOR REVIWERS: THIS ACCEPTANCE TEST IS FOR `StrategyAdapter`
-
 import {
   authenticate,
   AuthenticateFn,
   AuthenticationBindings,
   AuthenticationComponent,
-  AuthenticationStrategy,
   UserProfile,
 } from '@loopback/authentication';
 import {inject} from '@loopback/context';
-import {addExtension, Application, Provider} from '@loopback/core';
+import {Application, CoreTags} from '@loopback/core';
 import {anOpenApiSpec} from '@loopback/openapi-spec-builder';
 import {api, get} from '@loopback/openapi-v3';
 import {
@@ -30,8 +27,8 @@ import {
   SequenceHandler,
 } from '@loopback/rest';
 import {Client, createClientForHandler} from '@loopback/testlab';
-import {BasicStrategy, BasicVerifyFunction} from 'passport-http';
-import {StrategyAdapter} from '../../';
+import {BasicStrategy} from 'passport-http';
+import {StrategyAdapter} from '../../strategy-adapter';
 const SequenceActions = RestBindings.SequenceActions;
 const AUTH_STRATEGY_NAME = 'basic';
 
@@ -90,41 +87,31 @@ describe('Basic Authentication', () => {
 
   // Since it has to be user's job to provide the `verify` function and
   // instantiate the passport strategy, we cannot add the imported `BasicStrategy`
-  // class as extension directly, we need to wrap it as a strategy provider,
-  // then add the provider class as the extension.
-  // See Line 89 in the function `givenAServer`
-  class PassportBasicAuthProvider implements Provider<AuthenticationStrategy> {
-    value(): AuthenticationStrategy {
-      const basicStrategy = this.configuredBasicStrategy(verify);
-      return this.convertToAuthStrategy(basicStrategy);
-    }
-
-    configuredBasicStrategy(verifyFn: BasicVerifyFunction): BasicStrategy {
-      return new BasicStrategy(verifyFn);
-    }
-
-    convertToAuthStrategy(basic: BasicStrategy): AuthenticationStrategy {
-      return new StrategyAdapter(basic, AUTH_STRATEGY_NAME);
-    }
-  }
+  // class as extension directly.
+  // We need to either wrap it as a strategy provider, and add the provider
+  // class as the extension. (When having something like the verify function to inject)
+  // Or just wrap the basic strategy instance and bind it to the app. (When nothing to inject)
 
   function verify(username: string, password: string, cb: Function) {
     users.find(username, password, cb);
   }
+  const basicStrategy = new BasicStrategy(verify);
+  const basicAuthStrategy = new StrategyAdapter(
+    basicStrategy,
+    AUTH_STRATEGY_NAME,
+  );
 
   async function givenAServer() {
     app = new Application();
     app.component(AuthenticationComponent);
     app.component(RestComponent);
-    addExtension(
-      app,
-      AuthenticationBindings.AUTHENTICATION_STRATEGY_EXTENSION_POINT_NAME,
-      PassportBasicAuthProvider,
-      {
-        namespace:
+    app
+      .bind('authentication.strategies.basicAuthStrategy')
+      .to(basicAuthStrategy)
+      .tag({
+        [CoreTags.EXTENSION_FOR]:
           AuthenticationBindings.AUTHENTICATION_STRATEGY_EXTENSION_POINT_NAME,
-      },
-    );
+      });
     server = await app.getServer(RestServer);
   }
 
