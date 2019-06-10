@@ -39,7 +39,7 @@ export class StrategyAdapter implements AuthenticationStrategy {
     return new Promise<UserProfile>((resolve, reject) => {
       // mix-in passport additions like req.logIn and req.logOut
       for (const key in passportRequestMixin) {
-        // eslint-disable-next-line no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (request as any)[key] = passportRequestMixin[key];
       }
 
