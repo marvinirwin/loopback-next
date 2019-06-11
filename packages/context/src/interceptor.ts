@@ -130,13 +130,17 @@ export function globalInterceptor(group?: string, ...specs: BindingSpec[]) {
 /**
  * Interceptor function to intercept method invocations
  */
-export interface Interceptor extends GenericInterceptor<InvocationContext> {}
+export interface Interceptor
+  extends GenericInterceptor<InvocationContext, InvocationResult> {}
 
 /**
  * Interceptor function or binding key that can be used as parameters for
  * `@intercept()`
  */
-export type InterceptorOrKey = GenericInterceptorOrKey<InvocationContext>;
+export type InterceptorOrKey = GenericInterceptorOrKey<
+  InvocationContext,
+  InvocationResult
+>;
 
 /**
  * Metadata key for method-level interceptors

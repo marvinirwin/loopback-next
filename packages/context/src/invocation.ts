@@ -27,11 +27,6 @@ export type InvocationResult = any;
 export type InvocationArgs = any[];
 
 /**
- * `next` function
- */
-export type Next = () => ValueOrPromise<InvocationResult>;
-
-/**
  * InvocationContext represents the context to invoke interceptors for a method.
  * The context can be used to access metadata about the invocation as well as
  * other dependencies.

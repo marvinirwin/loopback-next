@@ -13,7 +13,7 @@ import {
   Next,
 } from '../..';
 
-describe('InterceptorChain', () => {
+describe('GenericInterceptorChain', () => {
   let ctx: Context;
   let interceptorChain: GenericInterceptorChain;
   let events: string[];
@@ -77,7 +77,7 @@ describe('InterceptorChain', () => {
     expect(fooVal).to.eql('1-res');
   });
 
-  it('catches error from second interceptor', async () => {
+  it('catches error from the second interceptor', async () => {
     givenInterceptorChain(
       givenNamedInterceptor('interceptor1'),
       async (context, next) => {
@@ -90,7 +90,7 @@ describe('InterceptorChain', () => {
     expect(events).to.eql(['before-interceptor1', 'before-interceptor2']);
   });
 
-  it('catches error from first interceptor', async () => {
+  it('catches error from the first interceptor', async () => {
     givenInterceptorChain(async (context, next) => {
       events.push('before-interceptor1');
       await next();
