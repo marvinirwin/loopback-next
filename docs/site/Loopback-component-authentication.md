@@ -14,11 +14,11 @@ and usually consists of two distinct pieces:
 - Authentication
 - Authorization
 
-`Authentication` is a process of verifying someone's identity before a protected
-endpoint is accessed.
+[Authentication](https://en.wikipedia.org/wiki/Authentication) is a process of
+verifying someone's identity before a protected resource is accessed.
 
-`Authorization` is a process of verifying the actions that an authenticated user
-is allowed to perform on a protected endpoint.
+[Authorization](https://en.wikipedia.org/wiki/Authorization) is a process of
+deciding if a user can perform an action on a protected resource.
 
 {% include note.html content="
 For a description of an `Authorization` process, please see [Authorization](Loopback-component-authorization.md).
@@ -31,8 +31,11 @@ Here is a **high level** overview of the authentication component.
 
 ![authentication_overview_highlevel](./imgs/authentication_overview_highlevel.png)
 
-It is made up of a decorator, a few providers, and an extension point to which
-authentication strategies must be registered.
+- A decorator to express an authentication requirement on controller methods
+- A provider to access method-level authentication metadata
+- An action in the REST sequence to enforce authentication
+- An extension point to discover all authentication strategies and handle the
+  delegation
 
 Here is a **detailed** overview of the authentication component.
 
@@ -40,10 +43,12 @@ Here is a **detailed** overview of the authentication component.
 
 Basically, to secure your API endpoints, you need to:
 
-- create/register a custom authentication strategy with a unique **name**
-- insert the authentication action in a custom sequence
 - decorate the endpoints of a controller with the
-  `@authenticate(strategyName, options?)` authentication decorator
+  `@authenticate(strategyName, options?)` decorator (app developer)
+- insert the authentication action in a custom sequence (app developer)
+- create a custom authentication strategy with a unique **name** (extension
+  developer)
+- register the custom authentication strategy (app developer)
 
 The **Authentication Component** takes care of the rest.
 
@@ -84,7 +89,7 @@ export class AuthenticationComponent implements Component {
 }
 ```
 
-As you can see, there are a few [providers](Creating-components.md#Providers)
+As you can see, there are a few [providers](Creating-components.md#providers)
 which make up the bulk of the authenticaton component.
 
 Essentially
@@ -396,8 +401,8 @@ export class DefaultSequence implements SequenceHandler {
 }
 ```
 
-Authentication is **not** part of the default sequence of actions, so you must
-create a custom sequence and add the authentication action.
+By default, authentication is **not** part of the sequence of actions, so you
+must create a custom sequence and add the authentication action.
 
 An authentication action `AuthenticateFn` is provided by the
 `AuthenticateActionProvider` class.
@@ -534,8 +539,8 @@ export class MyAuthenticatingSequence implements SequenceHandler {
 Notice the new dependency injection in the sequence's contructor.
 
 ```ts
-    @inject(AuthenticationBindings.AUTH_ACTION)
-    protected authenticateRequest: AuthenticateFn,
+@inject(AuthenticationBindings.AUTH_ACTION)
+protected authenticateRequest: AuthenticateFn,
 ```
 
 The binding key `AuthenticationBindings.AUTH_ACTION` gives us access to the
@@ -570,7 +575,7 @@ this.sequence(MyAuthenticatingSequence);
 We've gone through the main steps for adding `authentication` to your LoopBack 4
 application.
 
-Your application `application.ts` should look similar to this:
+Your `application.ts` should look similar to this:
 
 ```ts
 export class MyApplication extends BootMixin(
