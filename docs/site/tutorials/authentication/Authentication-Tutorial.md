@@ -49,11 +49,11 @@ Please see [JSON Web Token (JWT)](https://en.wikipedia.org/wiki/JSON_Web_Token)
 for more details.
 
 To view and run the completed `loopback4-example-shopping` application, follow
-the instructions in the [Try it out](try-it-out) section.
+the instructions in the [Try it out](#try-it-out) section.
 
 To understand the details of how JWT authentication can be added to a LoopBack 4
 application, read the
-[Adding JWT Authentication to a LoopBack 4 Application](adding-jwt-authentication-to-a-loopback-4-application)
+[Adding JWT Authentication to a LoopBack 4 Application](#adding-jwt-authentication-to-a-loopback-4-application)
 section.
 
 ## Try it out
@@ -163,7 +163,7 @@ npm install --save @loopback/authentication
 The core of authentication framework is found in the
 [AuthenticationComponent](https://github.com/strongloop/loopback-next/blob/master/packages/authentication/src/authentication.component.ts),
 so it is important to `add` the component in the `ShoppingApplication` class in
-`loopback4-example-shopping/packages/shopping/src/application.ts`.
+[loopback4-example-shopping/packages/shopping/src/application.ts](https://github.com/strongloop/loopback4-example-shopping/blob/master/packages/shopping/src/application.ts).
 
 ```ts
 import {
@@ -191,7 +191,7 @@ When creating a custom authentication strategy, it is necessary to implement the
 interface.
 
 A custom JWT authentication strategy `JWTAuthenticationStrategy` in
-`loopback4-example-shopping/packages/shopping/src/authentication-strategies/jwt-strategy.ts`
+[loopback4-example-shopping/packages/shopping/src/authentication-strategies/jwt-strategy.ts](https://github.com/strongloop/loopback4-example-shopping/blob/master/packages/shopping/src/authentication-strategies/jwt-strategy.ts)
 was implemented as follows:
 
 ```ts
