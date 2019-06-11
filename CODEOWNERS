@@ -6,6 +6,7 @@
 
 * @bajtos @raymondfeng
 
+acceptance/repository-mongodb/* @bajtos
 packages/authentication/* @bajtos @raymondfeng
 packages/boot/* @raymondfeng @hacksparrow
 packages/booter-lb3app/* @bajtos @nabdelgadir
