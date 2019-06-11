@@ -1,0 +1,3 @@
+- Setup MongoDB server via Docker
+  - A script to use by developers
+  - Docs for developers

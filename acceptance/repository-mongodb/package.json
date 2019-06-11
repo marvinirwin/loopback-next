@@ -10,7 +10,8 @@
     "build": "lb-tsc",
     "clean": "lb-clean loopback-test-mongodb*.tgz dist tsconfig.build.tsbuildinfo package",
     "pretest": "npm run build",
-    "test": "lb-mocha \"dist/__tests__/**/*.js\"",
+    "test": "npm run mocha",
+    "mocha": "lb-mocha \"dist/__tests__/**/*.js\"",
     "verify": "npm pack && tar xf loopback-test-mongodb*.tgz && tree package && npm run clean"
   },
   "author": "IBM Corp.",
